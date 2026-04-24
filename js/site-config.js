@@ -31,7 +31,7 @@ window.SITE_CONFIG = {
       ],
     },
   ],
-  footerNote: "Per aspera ad astra. · 静态托管 GitHub Pages",
+  footerNote: "Per aspera ad astra. ",
   /** 留空则留言表单隐藏，仅显示说明与精选区 */
   formspreeMessageUrl: "",
 };
