@@ -1,22 +1,31 @@
 (function () {
-  const listEl = document.getElementById("recent-posts");
-  const errEl = document.getElementById("home-error");
+  var listEl = document.getElementById("recent-posts");
+  var errEl = document.getElementById("home-error");
 
   async function run() {
     try {
-      const posts = await loadPosts();
-      const recent = posts.slice(0, 5);
+      var posts = await loadPosts();
+      var recent = posts.slice(0, 8);
       listEl.innerHTML = "";
-      recent.forEach((p) => {
-        const li = document.createElement("li");
-        const a = document.createElement("a");
+      recent.forEach(function (p) {
+        var li = document.createElement("li");
+        var a = document.createElement("a");
         a.className = "post-card";
         a.href = postDetailUrl(p.slug);
-        a.innerHTML = `
-          <div class="post-card__meta">${formatPostDate(p.date)}</div>
-          <h2 class="post-card__title">${escapeHtml(p.title)}</h2>
-          <p class="post-card__excerpt">${escapeHtml(p.excerpt || "")}</p>
-        `;
+        var pin = p.pinned ? '<span class="pin-badge">置顶</span> ' : "";
+        a.innerHTML =
+          '<div class="post-card__meta">' +
+          pin +
+          formatPostDate(p.date) +
+          (p.category ? " · " + escapeHtml(p.category) : "") +
+          "</div>" +
+          '<h2 class="post-card__title">' +
+          escapeHtml(p.title) +
+          "</h2>" +
+          postTagsHtml(p.tags) +
+          '<p class="post-card__excerpt">' +
+          escapeHtml(p.excerpt || "") +
+          "</p>";
         li.appendChild(a);
         listEl.appendChild(li);
       });
@@ -25,12 +34,6 @@
       errEl.textContent = e.message || "加载失败";
       listEl.innerHTML = "";
     }
-  }
-
-  function escapeHtml(s) {
-    const div = document.createElement("div");
-    div.textContent = s;
-    return div.innerHTML;
   }
 
   run();

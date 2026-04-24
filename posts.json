@@ -3,12 +3,18 @@
     "slug": "welcome",
     "title": "欢迎来到我的博客",
     "date": "2026-04-24",
-    "excerpt": "这是第一篇示例文章，介绍这个站点的结构和使用方式。"
+    "excerpt": "第一篇示例：站点结构、GitHub Pages 与 Obsidian 协作提示。",
+    "category": "站务",
+    "tags": ["博客", "GitHub Pages"],
+    "pinned": true
   },
   {
     "slug": "markdown-tips",
     "title": "Markdown 写作小抄",
     "date": "2026-04-20",
-    "excerpt": "常用 Markdown 语法速查，方便在 posts 文件夹里写文章。"
+    "excerpt": "常用语法、图片路径、LaTeX 公式与嵌入媒体说明。",
+    "category": "写作",
+    "tags": ["Markdown", "LaTeX", "教程"],
+    "pinned": false
   }
 ]

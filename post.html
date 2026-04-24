@@ -4,35 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="文章正文" />
-    <title>Blog · 文章</title>
+    <title>文章 · YINZ7032's Blog</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body>
-    <header class="site-header">
-      <div class="site-header__inner">
-        <a class="logo" href="index.html">My<span>Blog</span></a>
-        <nav class="nav" aria-label="主导航">
-          <a href="index.html">首页</a>
-          <a href="posts.html">文章</a>
-        </nav>
-      </div>
-    </header>
+  <body data-page="posts">
+    <header class="site-header" id="site-header"></header>
 
     <main>
+      <nav class="breadcrumb" aria-label="面包屑">
+        <a href="index.html">首页</a> <span class="breadcrumb__sep">/</span>
+        <a href="posts.html">文章</a> <span class="breadcrumb__sep">/</span>
+        <span id="breadcrumb-current">…</span>
+      </nav>
       <a class="back-link" href="posts.html">← 返回文章列表</a>
       <header class="article-header">
         <h1 id="article-title">加载中…</h1>
         <time id="article-date" datetime=""></time>
+        <div id="article-tags" class="article-tags" hidden></div>
       </header>
       <p id="article-error" class="msg" hidden></p>
       <article id="article-body" class="article-body" aria-live="polite"></article>
     </main>
 
-    <footer class="site-footer">
-      <p>由 GitHub Pages 托管 · 纯 HTML / CSS / JS</p>
-    </footer>
+    <footer class="site-footer site-footer--rich" id="site-footer"></footer>
 
+    <script src="js/site-config.js"></script>
+    <script src="js/layout.js"></script>
     <script src="js/posts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
     <script src="js/post-detail.js"></script>
   </body>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="留言与精选" />
+    <title>留言 · YINZ7032's Blog</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body data-page="guestbook">
+    <header class="site-header" id="site-header"></header>
+
+    <main>
+      <nav class="breadcrumb" aria-label="面包屑">
+        <a href="index.html">首页</a> <span class="breadcrumb__sep">/</span> <span>留言</span>
+      </nav>
+      <h1 class="page-title">留言</h1>
+      <p class="page-desc">
+        访客提交的内容可通过 Formspree 仅发送到你的邮箱；下方「精选」为仓库中的公开展示，由你手动编辑
+        <code>data/featured-comments.json</code> 维护。
+      </p>
+
+      <h2 class="section-title">精选展示</h2>
+      <p id="guestbook-error" class="msg msg--error" hidden></p>
+      <div id="featured-messages" class="featured-list"></div>
+
+      <h2 class="section-title">给我留言</h2>
+      <div id="guestbook-form-wrap"></div>
+    </main>
+
+    <footer class="site-footer site-footer--rich" id="site-footer"></footer>
+
+    <script src="js/site-config.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/posts.js"></script>
+    <script src="js/guestbook.js"></script>
+  </body>
+</html>

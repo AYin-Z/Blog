@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="关于本站与写作工作流" />
+    <title>关于 · YINZ7032's Blog</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body data-page="about">
+    <header class="site-header" id="site-header"></header>
+
+    <main>
+      <nav class="breadcrumb" aria-label="面包屑">
+        <a href="index.html">首页</a> <span class="breadcrumb__sep">/</span> <span>关于</span>
+      </nav>
+      <h1 class="page-title">关于</h1>
+
+      <article class="article-body about-prose">
+        <h2>站点</h2>
+        <p>
+          静态博客托管于 GitHub Pages，无构建步骤：HTML / CSS / JS 直出，文章为
+          <code>posts/*.md</code>，索引为根目录 <code>posts.json</code>。
+        </p>
+
+        <h2>用 Obsidian 当「编辑器」</h2>
+        <p>
+          可以把本仓库克隆到本地，用 Obsidian 打开仓库根目录作为一个 Vault。将笔记放进
+          <code>posts</code> 文件夹、与线上 Markdown 共用即可。建议：
+        </p>
+        <ul>
+          <li>
+            <strong>链接与图片路径</strong>：浏览器中的文章页是 <code>post.html?slug=xxx</code>，图片请写<strong>相对网站根目录</strong>的路径，例如
+            <code>![](posts/welcome/demo.svg)</code>，这样部署后与本地 Obsidian 预览都能对齐（把附件放在
+            <code>posts/文章slug/</code> 下更易管理）。
+          </li>
+          <li>
+            <strong>Wiki 链接</strong>：<code>[[另一篇]]</code> 不会被当前站点解析，请改用标准 Markdown 链接
+            <code>[标题](post.html?slug=...)</code> 或链到外部。
+          </li>
+          <li>在 Obsidian 里改完后，照常 <code>git commit</code> / <code>push</code> 即可更新线上。</li>
+        </ul>
+
+        <h2>数学公式</h2>
+        <p>
+          正文支持 KaTeX，与 Obsidian 常见写法类似：行内 <code>$...$</code>，块级
+          <code>$$...$$</code>，亦可用 <code>\( \)</code> 与 <code>\[ \]</code>。详见
+          <a href="post.html?slug=markdown-tips">Markdown 写作小抄</a>。
+        </p>
+
+        <h2>后续：朋友圈等内容</h2>
+        <p>
+          若要把朋友圈择优同步到博客，可在试验分支维护独立页面或 JSON 数据源，再合并到主分支发布——当前实验功能在
+          <code>dev/experiment</code> 分支开发。
+        </p>
+      </article>
+    </main>
+
+    <footer class="site-footer site-footer--rich" id="site-footer"></footer>
+
+    <script src="js/site-config.js"></script>
+    <script src="js/layout.js"></script>
+  </body>
+</html>
