@@ -21,6 +21,14 @@
     return md.slice(m[0].length).replace(/^\n+/, "");
   }
 
+  function convertObsidianEmbeds(md) {
+    // Convert ![[file]] to ![](file)
+    md = md.replace(/!\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, function(match, filename, alias) {
+      return "![" + (alias || filename) + "](" + filename + ")";
+    });
+    return md;
+  }
+
   function renderMath() {
     if (typeof renderMathInElement !== "function") return;
     renderMathInElement(bodyEl, {
@@ -74,6 +82,7 @@
       }
       var md = await mdRes.text();
       md = stripYamlFrontmatter(md);
+      md = convertObsidianEmbeds(md);
       bodyEl.innerHTML = marked.parse(md, { gfm: true, breaks: true });
       renderMath();
     } catch (e) {
