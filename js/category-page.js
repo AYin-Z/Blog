@@ -23,7 +23,7 @@
     try {
       var posts = await loadPosts();
       var filtered = posts.filter(function (p) {
-        return (p.category || "随笔") === cat;
+        return (p.category || "孤岛") === cat;
       });
       listEl.innerHTML = "";
       if (!filtered.length) {

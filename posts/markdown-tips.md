@@ -2,7 +2,7 @@
 title: Markdown 写作小抄
 date: 2026-04-20
 categories:
-  - 写作
+  - 荒原
 tags:
   - Markdown
   - LaTeX

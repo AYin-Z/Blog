@@ -2,7 +2,7 @@
 title: 欢迎来到我的博客
 date: 2026-04-24
 categories:
-  - 站务
+  - 摆渡
 tags:
   - 博客
   - GitHub Pages
