@@ -10,5 +10,11 @@
     "title": "Markdown 写作小抄",
     "date": "2026-04-20",
     "excerpt": "常用 Markdown 语法速查，方便在 posts 文件夹里写文章。"
+  },
+  {
+    "slug": "测试",
+    "title": "测试",
+    "date": "2026-04-24",
+    "excerpt": "Obsidian 与 Git 同步测试文章。"
   }
 ]
