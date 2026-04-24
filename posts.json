@@ -23,6 +23,17 @@
     "pinned": true
   },
   {
+    "slug": "250401_雨",
+    "title": "雨",
+    "date": "2025-04-01",
+    "excerpt": "求人不如求己。",
+    "category": "摆渡",
+    "tags": [
+      "摘抄"
+    ],
+    "pinned": true
+  },
+  {
     "slug": "Thought Coming-Of-Age",
     "title": "Coming-Of-Age",
     "date": "2025-03-02",
@@ -34,6 +45,18 @@
     "pinned": true
   },
   {
+    "slug": "240810_星",
+    "title": "星",
+    "date": "2024-08-10",
+    "excerpt": "蓝调",
+    "category": "摆渡",
+    "tags": [
+      "Memo",
+      "摘抄"
+    ],
+    "pinned": true
+  },
+  {
     "slug": "Thought 17Y",
     "title": "Thought 17Y",
     "date": "2024-03-02",
@@ -41,6 +64,17 @@
     "category": "孤岛",
     "tags": [
       "Thoughts"
+    ],
+    "pinned": true
+  },
+  {
+    "slug": "240301_《借我》",
+    "title": "《借我》",
+    "date": "1970-01-01",
+    "excerpt": "----樊小纯",
+    "category": "摆渡",
+    "tags": [
+      "摘抄"
     ],
     "pinned": true
   },
@@ -71,6 +105,62 @@
     "pinned": false
   },
   {
+    "slug": "250518_飞光，飞光",
+    "title": "飞光，飞光",
+    "date": "2025-05-18",
+    "excerpt": "思_苦昼短",
+    "category": "荒原",
+    "tags": [
+      "Memo"
+    ],
+    "pinned": false
+  },
+  {
+    "slug": "240817_小王子与狐狸",
+    "title": "小王子与狐狸",
+    "date": "2024-08-17",
+    "excerpt": "自由而独立的爱",
+    "category": "圆舞",
+    "tags": [
+      "Memo",
+      "摘抄"
+    ],
+    "pinned": false
+  },
+  {
+    "slug": "240813_我写我",
+    "title": "我写我",
+    "date": "2024-08-13",
+    "excerpt": "我不是谁的高山湖泊。",
+    "category": "摆渡",
+    "tags": [
+      "摘抄"
+    ],
+    "pinned": false
+  },
+  {
+    "slug": "240211_年",
+    "title": "年",
+    "date": "2024-02-11",
+    "excerpt": "故乡的闯入者",
+    "category": "孤岛",
+    "tags": [
+      "Memo"
+    ],
+    "pinned": false
+  },
+  {
+    "slug": "240126_尖塔",
+    "title": "尖塔",
+    "date": "2024-01-26",
+    "excerpt": "已往之不谏，来者犹可追。",
+    "category": "摆渡",
+    "tags": [
+      "Memo"
+    ],
+    "pinned": false
+  },
+  {
     "slug": "Thought 2023",
     "title": "Thought 2023",
     "date": "2024-01-26",
@@ -79,6 +169,26 @@
     "tags": [
       "Thoughts"
     ],
+    "pinned": false
+  },
+  {
+    "slug": "231231_烟火起，照人间，举杯敬此年。",
+    "title": "“烟火起，照人间，举杯敬此年”",
+    "date": "2023-12-31",
+    "excerpt": "敬事如仪。",
+    "category": "荒原",
+    "tags": [
+      "review"
+    ],
+    "pinned": false
+  },
+  {
+    "slug": "未命名",
+    "title": "未命名",
+    "date": "1970-01-01",
+    "excerpt": "小王子与狐狸",
+    "category": "孤岛",
+    "tags": [],
     "pinned": false
   }
 ]
