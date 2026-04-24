@@ -19,21 +19,15 @@ window.SITE_CONFIG = {
   /** 页脚多列外链，可按需增删改 */
   footerColumns: [
     {
-      title: "竞赛 & OJ",
-      links: [
-        { label: "洛谷", href: "https://www.luogu.com.cn/" },
-        { label: "Codeforces", href: "https://codeforces.com/" },
-        { label: "AtCoder", href: "https://atcoder.jp/" },
-        { label: "LibreOJ", href: "https://loj.ac/" },
-        { label: "UOJ", href: "https://uoj.ac/" },
-      ],
-    },
-    {
-      title: "社交 & 账号",
+      title: "链接",
       links: [
         { label: "GitHub", href: "https://github.com/AYin-Z" },
-        { label: "知乎", href: "https://www.zhihu.com/" },
-        { label: "哔哩哔哩", href: "https://www.bilibili.com/" },
+        {
+          label: "YINZ7032",
+          href: "https://www.luogu.com.cn/space/show?username=YINZ7032",
+        },
+        { label: "知乎", href: "https://www.zhihu.com/people/chuan-qi-yz" },
+        { label: "哔哩哔哩", href: "https://space.bilibili.com/571856369" },
       ],
     },
   ],
