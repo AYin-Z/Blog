@@ -1,3 +1,14 @@
+---
+title: Thought 17Y
+date: 2024-03-02
+categories:
+  - 孤岛
+tags:
+  - Thoughts
+pinned: true
+excerpt: To my year 17.
+---
+
 2023.3.2
 他与人间相识的第十七年，遇津城的第二年 
 也是少年时代的落幕序曲。
