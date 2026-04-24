@@ -8,7 +8,7 @@ function normalizePost(p) {
     date: p.date,
     excerpt: p.excerpt || "",
     tags: Array.isArray(p.tags) ? p.tags : [],
-    category: p.category || "随笔",
+    category: p.category || "孤岛",
     pinned: !!p.pinned,
   };
 }

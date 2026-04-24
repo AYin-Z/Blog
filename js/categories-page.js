@@ -7,7 +7,7 @@
       var posts = await loadPosts();
       var map = {};
       posts.forEach(function (p) {
-        var c = p.category || "随笔";
+        var c = p.category || "孤岛";
         map[c] = (map[c] || 0) + 1;
       });
       var cats = Object.keys(map).sort(function (a, b) {

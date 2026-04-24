@@ -48,16 +48,19 @@ def first_line_excerpt(body: str, max_len: int = 160) -> str:
     return ""
 
 
+DEFAULT_CATEGORY = "孤岛"
+
+
 def normalize_category(meta: dict) -> str:
     if meta.get("category") is not None:
         c = meta["category"]
-        return str(c).strip() or "随笔"
+        return str(c).strip() or DEFAULT_CATEGORY
     cats = meta.get("categories")
     if isinstance(cats, list) and cats:
-        return str(cats[0]).strip() or "随笔"
+        return str(cats[0]).strip() or DEFAULT_CATEGORY
     if isinstance(cats, str) and cats.strip():
         return cats.strip()
-    return "随笔"
+    return DEFAULT_CATEGORY
 
 
 def normalize_tags(meta: dict) -> list[str]:
