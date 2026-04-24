@@ -41,7 +41,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2026-04-24.md",
+                "file": "posts/2026-04-24.md",
                 "mode": "source",
                 "source": false
               },
@@ -186,7 +186,7 @@
   "active": "4a7f73964ecca88e",
   "lastOpenFiles": [
     "未命名.md",
-    "2026-04-24.md",
+    "posts/2026-04-24.md",
     "README.md",
     "BlogModel/BlogModel.md",
     "posts/markdown-tips.md",
