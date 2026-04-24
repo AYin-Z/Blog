@@ -40,12 +40,14 @@ YINZ7032 的个人静态博客，基于纯 HTML/CSS/JS 构建，部署于 GitHub
 │   ├── markdown-tips.md
 │   └── ...
 ├── _comments/           # 访客留言源文件
-│   ├── README.md        # 留言同步说明
 │   └── *.md             # 留言文件
+├── resource/            # 文章附件（自动整理）
+│   └── {slug}/          # 按文章 slug 分组存放
 ├── data/
 │   └── featured-comments.json  # 精选留言（自动生成）
 └── scripts/
     ├── build_posts_index.py     # 生成 posts.json
+    ├── organize_resources.py    # 整理附件到 resource/
     ├── coze-preview-build.sh    # 预览构建
     └── coze-preview-run.sh      # 预览运行
 ```
@@ -69,6 +71,27 @@ Obsidian 拉取 → 你编辑 approved: true
 **GitHub Actions**:
 - `sync-comments.yml`: 扫描 `_comments/`，筛选 `approved: true` 生成精选
 - `sync-discussions.yml`: 同步 GitHub Discussions 到 `_comments/`
+- `organize-resources.yml`: 整理文章附件到 `resource/` 目录
+
+## 资源整理工作流
+
+```
+Obsidian 提交文章（含附件）
+    ↓
+push 到 GitHub
+    ↓
+organize-resources.yml 触发
+    ↓
+扫描 posts/{slug}/ 子文件夹
+    ↓
+移动附件到 resource/{slug}/
+    ↓
+更新文章中的链接
+```
+
+使用方式：
+- 在 Obsidian 中用 `![](posts/xxx/图片.png)` 或 `![[xxx/图片.png]]` 引用附件
+- GitHub Action 自动整理到 `resource/{slug}/` 并更新链接
 
 ## 关键入口 / 核心模块
 

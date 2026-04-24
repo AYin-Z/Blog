@@ -1,0 +1,52 @@
+# 扫描 posts/ 中的附件，移动到 resource/ 目录并更新文章链接
+name: Organize Resources
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "posts/**/*.md"
+      - "posts/**/*"
+      - "scripts/organize_resources.py"
+      - ".github/workflows/organize-resources.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  organize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Organize resources
+        run: python scripts/organize_resources.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          # Check for changes
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "No resource changes"
+            exit 0
+          fi
+          
+          # Add all changed files
+          git add -A
+          
+          # Commit with details
+          CHANGES=$(git diff --cached --name-only | grep -E "^posts/|^resource/" | head -20 || echo "")
+          if [ -z "$CHANGES" ]; then
+            echo "No relevant changes"
+            exit 0
+          fi
+          
+          git commit -m "chore: organize post resources to resource/ folder"
+          git push
