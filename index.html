@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="个人博客 — GitHub Pages" />
+    <title>Blog · 首页</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="logo" href="index.html">My<span>Blog</span></a>
+        <nav class="nav" aria-label="主导航">
+          <a class="is-active" href="index.html">首页</a>
+          <a href="posts.html">文章</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>YINZ7032's Blog</h1>
+        <p>
+          Welcome to my paradise.
+        </p>
+      </section>
+
+      <h2 class="section-title">最近文章</h2>
+      <p id="home-error" class="msg msg--error" hidden></p>
+      <ul id="recent-posts" class="post-list" aria-live="polite"></ul>
+    </main>
+
+    <footer class="site-footer">
+      <p>Per aspera ad astra.</p>
+    </footer>
+
+    <script src="js/posts.js"></script>
+    <script src="js/home.js"></script>
+  </body>
+</html>
