@@ -23,7 +23,7 @@ window.SITE_CONFIG = {
       links: [
         { label: "GitHub", href: "https://github.com/AYin-Z" },
         {
-          label: "YINZ7032",
+          label: "QQ",
           href: "mailto:2792715318@qq.com",
         },
         { label: "知乎", href: "https://www.zhihu.com/people/chuan-qi-yz" },
