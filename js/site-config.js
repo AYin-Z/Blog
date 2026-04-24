@@ -24,7 +24,7 @@ window.SITE_CONFIG = {
         { label: "GitHub", href: "https://github.com/AYin-Z" },
         {
           label: "YINZ7032",
-          href: "https://www.luogu.com.cn/space/show?username=YINZ7032",
+          href: "mailto:2792715318@qq.com",
         },
         { label: "知乎", href: "https://www.zhihu.com/people/chuan-qi-yz" },
         { label: "哔哩哔哩", href: "https://space.bilibili.com/571856369" },
