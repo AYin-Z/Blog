@@ -25,6 +25,28 @@
     "pinned": true
   },
   {
+    "slug": "Thought 19Y",
+    "title": "Thought 19Y",
+    "date": "2026-03-02",
+    "excerpt": "To my year 19.",
+    "category": "孤岛",
+    "tags": [
+      "Thoughts"
+    ],
+    "pinned": true
+  },
+  {
+    "slug": "Thought 17Y",
+    "title": "Thought 17Y",
+    "date": "2024-03-02",
+    "excerpt": "To my year 17.",
+    "category": "孤岛",
+    "tags": [
+      "Thoughts"
+    ],
+    "pinned": true
+  },
+  {
     "slug": "markdown-tips",
     "title": "Markdown 写作小抄",
     "date": "2026-04-20",
@@ -35,24 +57,6 @@
       "LaTeX",
       "教程"
     ],
-    "pinned": false
-  },
-  {
-    "slug": "Thought 17Y",
-    "title": "Thought 17Y",
-    "date": "1970-01-01",
-    "excerpt": "2023.3.2",
-    "category": "孤岛",
-    "tags": [],
-    "pinned": false
-  },
-  {
-    "slug": "Thought 19Y",
-    "title": "Thought 19Y",
-    "date": "1970-01-01",
-    "excerpt": "- [ ] Thought 19Y ⏫ 📅 2026-03-02",
-    "category": "孤岛",
-    "tags": [],
     "pinned": false
   },
   {
