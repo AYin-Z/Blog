@@ -16,5 +16,14 @@
     "category": "写作",
     "tags": ["Markdown", "LaTeX", "教程"],
     "pinned": false
+  },
+  {
+    "slug": "测试",
+    "title": "测试",
+    "date": "2026-04-24",
+    "excerpt": "Obsidian 与 Git 同步测试文章。",
+    "category": "随笔",
+    "tags": ["测试", "Obsidian"],
+    "pinned": false
   }
 ]
