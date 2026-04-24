@@ -774,8 +774,28 @@ html[data-theme="light"] .site-header {
   background: rgba(255, 255, 255, 0.9);
 }
 
+html[data-theme="light"] .tag-card {
+  background: linear-gradient(
+    135deg,
+    hsla(var(--tag-hue), 42%, 88%, 0.95),
+    hsla(calc(var(--tag-hue) + 40), 38%, 82%, 0.92)
+  );
+}
+
+html[data-theme="light"] .tag-card__name {
+  color: #1f2937;
+}
+
 html[data-theme="light"] .tag-card__count {
-  color: rgba(17, 24, 39, 0.8);
+  color: rgba(31, 41, 55, 0.75);
+}
+
+html[data-theme="light"] .tag-card__arrow {
+  color: rgba(31, 41, 55, 0.6);
+}
+
+html[data-theme="light"] .tag-card:hover {
+  border-color: rgba(5, 150, 105, 0.35);
 }
 
 html[data-theme="light"] .footer-col a {
