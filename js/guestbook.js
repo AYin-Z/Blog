@@ -1,7 +1,6 @@
 (function () {
   var listEl = document.getElementById("featured-messages");
   var errEl = document.getElementById("guestbook-error");
-  var formWrap = document.getElementById("guestbook-form-wrap");
   var cfg = window.SITE_CONFIG;
 
   async function loadFeatured() {
@@ -34,35 +33,12 @@
     }
   }
 
-  function setupForm() {
-    if (!formWrap) return;
-    var url = cfg && cfg.formspreeMessageUrl;
-    if (!url) {
-      formWrap.innerHTML =
-        '<div class="msg">' +
-        "<strong>私密留言</strong>：在 <code>js/site-config.js</code> 中填写 <code>formspreeMessageUrl</code>（Formspree 表单地址）后，访客可通过下方表单给你发消息，内容仅发送到你的邮箱，不会公开展示。你可将愿意展示的条目手动写入 <code>data/featured-comments.json</code>。" +
-        "</div>";
-      return;
-    }
-    formWrap.innerHTML =
-      '<form class="guestbook-form" action="' +
-      escapeAttr(url) +
-      '" method="POST">' +
-      '<label class="form-field"><span>称呼（可选）</span><input type="text" name="name" autocomplete="nickname" /></label>' +
-      '<label class="form-field"><span>邮箱（可选，便于回复）</span><input type="email" name="email" autocomplete="email" /></label>' +
-      '<label class="form-field"><span>留言</span><textarea name="message" rows="5" required placeholder="仅站长可见；精选内容由站长手动发布。"></textarea></label>' +
-      '<input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />' +
-      '<button type="submit" class="btn-primary">发送</button>' +
-      "</form>";
-  }
-
-  function escapeAttr(s) {
+  function escapeHtml(s) {
     return String(s || "")
       .replace(/&/g, "&amp;")
-      .replace(/"/g, "&quot;")
-      .replace(/</g, "&lt;");
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
   }
 
-  setupForm();
   loadFeatured();
 })();

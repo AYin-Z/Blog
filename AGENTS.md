@@ -53,9 +53,11 @@ YINZ7032 的个人静态博客，基于纯 HTML/CSS/JS 构建，部署于 GitHub
 ## 留言精选工作流
 
 ```
-访客提交留言 (Formspree)
+访客在博客留言 (Giscus)
     ↓
-创建 _comments/{date}-{slug}.md (approved: false)
+留言自动同步到 GitHub Discussions
+    ↓
+GitHub Action 同步 Discussions → _comments/
     ↓
 Obsidian 拉取 → 你编辑 approved: true
     ↓
@@ -66,11 +68,12 @@ Obsidian 拉取 → 你编辑 approved: true
 
 **GitHub Actions**:
 - `sync-comments.yml`: 扫描 `_comments/`，筛选 `approved: true` 生成精选
+- `sync-discussions.yml`: 同步 GitHub Discussions 到 `_comments/`
 
 ## 关键入口 / 核心模块
 
 - **首页**: `index.html` - 展示最近文章
-- **站点配置**: `js/site-config.js` - 导航、页脚外链、Formspree 留言表单
+- **站点配置**: `js/site-config.js` - 导航、页脚外链
 - **文章数据**: `posts.json` - 文章索引（由 `scripts/build_posts_index.py` 生成）
 - **样式**: `css/style.css` - 深色主题样式
 
@@ -104,12 +107,10 @@ curl http://localhost:5000  # 应返回 200
 
 1. **文章格式**: Markdown 文件放在 `posts/` 目录
 2. **文章元数据**: 在 `posts.json` 中维护（slug, title, date, excerpt, category, tags）
-3. **留言功能**: 使用 Formspree，需要在 `js/site-config.js` 配置 `formspreeMessageUrl`
-4. **GitHub Actions**: `.github/workflows/sync-posts-json.yml` 可能用于自动同步文章
+3. **GitHub Actions**: `.github/workflows/sync-posts-json.yml` 可能用于自动同步文章
 
 ## 常见问题和预防
 
 1. **预览脚本幂等性**: `coze-preview-run.sh` 会清理 5000 端口残留进程，重复执行安全
 2. **静态资源路径**: 所有路径相对于根目录，避免硬编码绝对路径
 3. **posts.json 更新**: 新增文章后需手动或通过脚本更新 `posts.json`
-4. **留言板功能**: 需要 Formspree 账号配置，否则留言表单不显示

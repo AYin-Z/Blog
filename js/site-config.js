@@ -1,6 +1,5 @@
 /**
- * 站点配置：导航、页脚外链、留言表单。
- * Formspree：https://formspree.io 注册表单后，把提交 URL 填到 formspreeMessageUrl（仅你收邮件，访客看不到历史留言）。
+ * 站点配置：导航、页脚外链。
  * 精选展示：编辑 data/featured-comments.json 后提交仓库。
  */
 window.SITE_CONFIG = {
@@ -33,6 +32,4 @@ window.SITE_CONFIG = {
     },
   ],
   footerNote: "Per aspera ad astra. ",
-  /** 留空则留言表单隐藏，仅显示说明与精选区 */
-  formspreeMessageUrl: "",
 };
