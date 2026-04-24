@@ -12,10 +12,10 @@
     "pinned": true
   },
   {
-    "slug": "测试",
-    "title": "测试",
+    "slug": "大标题测试",
+    "title": "标题测试",
     "date": "2026-04-24",
-    "excerpt": "测试obsidian移动端同步21：08",
+    "excerpt": "摘要测试obsidian移动端同步21：08",
     "category": "孤岛",
     "tags": [
       "Markdown",
