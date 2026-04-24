@@ -1,0 +1,14 @@
+[
+  {
+    "slug": "welcome",
+    "title": "欢迎来到我的博客",
+    "date": "2026-04-24",
+    "excerpt": "这是第一篇示例文章，介绍这个站点的结构和使用方式。"
+  },
+  {
+    "slug": "markdown-tips",
+    "title": "Markdown 写作小抄",
+    "date": "2026-04-20",
+    "excerpt": "常用 Markdown 语法速查，方便在 posts 文件夹里写文章。"
+  }
+]
