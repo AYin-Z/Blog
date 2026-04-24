@@ -3,28 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="个人博客 — GitHub Pages" />
-    <title>首页 · YINZ7032's Blog</title>
+    <meta name="description" content="按标签筛选文章" />
+    <title>标签 · YINZ7032's Blog</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body data-page="home">
+  <body data-page="tags">
     <header class="site-header" id="site-header"></header>
 
     <main>
       <nav class="breadcrumb" aria-label="面包屑">
         <a href="index.html">首页</a> <span class="breadcrumb__sep">/</span>
+        <a href="tags.html">标签</a> <span class="breadcrumb__sep">/</span> <span id="tag-bc">…</span>
       </nav>
-      <section class="hero">
-        <h1>YINZ7032's Blog</h1>
-        <p>
-          唯有文字但此重任，宣告生命曾经在场。<br />
-          Welcome to my paradise.
-        </p>
-      </section>
-
-      <h2 class="section-title">最近文章</h2>
-      <p id="home-error" class="msg msg--error" hidden></p>
-      <ul id="recent-posts" class="post-list" aria-live="polite"></ul>
+      <h1 class="page-title" id="tag-heading">标签</h1>
+      <p class="page-desc"><a href="tags.html">← 所有标签</a></p>
+      <p id="tag-error" class="msg msg--error" hidden></p>
+      <ul id="tag-posts" class="post-list" aria-live="polite"></ul>
     </main>
 
     <footer class="site-footer site-footer--rich" id="site-footer"></footer>
@@ -32,6 +26,6 @@
     <script src="js/site-config.js"></script>
     <script src="js/layout.js"></script>
     <script src="js/posts.js"></script>
-    <script src="js/home.js"></script>
+    <script src="js/tag-page.js"></script>
   </body>
 </html>

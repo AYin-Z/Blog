@@ -3,21 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="文章列表" />
-    <title>文章 · YINZ7032's Blog</title>
+    <meta name="description" content="文章归档" />
+    <title>归档 · YINZ7032's Blog</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body data-page="posts">
+  <body data-page="archives">
     <header class="site-header" id="site-header"></header>
 
     <main>
       <nav class="breadcrumb" aria-label="面包屑">
-        <a href="index.html">首页</a> <span class="breadcrumb__sep">/</span> <span>文章</span>
+        <a href="index.html">首页</a> <span class="breadcrumb__sep">/</span> <span>归档</span>
       </nav>
-      <h1 class="page-title">全部文章</h1>
-      <p class="page-desc">置顶优先，其余按发布日期从新到旧排列。</p>
-      <p id="list-error" class="msg msg--error" hidden></p>
-      <ul id="all-posts" class="post-list" aria-live="polite"></ul>
+      <h1 class="page-title">归档</h1>
+      <p class="page-desc">按年份浏览全部文章。</p>
+      <p id="archives-error" class="msg msg--error" hidden></p>
+      <div id="archives-wrap"></div>
     </main>
 
     <footer class="site-footer site-footer--rich" id="site-footer"></footer>
@@ -25,6 +25,6 @@
     <script src="js/site-config.js"></script>
     <script src="js/layout.js"></script>
     <script src="js/posts.js"></script>
-    <script src="js/posts-list.js"></script>
+    <script src="js/archives.js"></script>
   </body>
 </html>

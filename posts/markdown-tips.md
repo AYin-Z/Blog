@@ -1,3 +1,16 @@
+---
+title: Markdown 写作小抄
+date: 2026-04-20
+categories:
+  - 写作
+tags:
+  - Markdown
+  - LaTeX
+  - 教程
+pinned: false
+excerpt: 常用语法、图片路径、LaTeX 公式与嵌入媒体说明。
+---
+
 # Markdown 写作小抄
 
 下面是写博客时常用的 Markdown 语法示例。
@@ -42,6 +55,32 @@ function hello() {
 |------|------|
 | 数据 | 数据 |
 
+## 图片与媒体
+
+图片路径建议从**站点根目录**写起，例如本站仓库根下的 `posts/welcome/demo.svg`：
+
+![](posts/welcome/demo.svg)
+
+外链图片与普通 Markdown 相同：`![](https://example.com/a.png)`。
+
+嵌入视频可在 Markdown 中**直接写 HTML 标签**（需谨慎，仅信任来源），例如：
+
+`<video controls width="100%" src="https://…/clip.mp4"></video>`
+
+（本页不自动播放示例视频，避免额外流量。）
+
+## LaTeX（KaTeX）
+
+行内公式：Euler 公式 $e^{i\pi}+1=0$。
+
+块级公式：
+
+$$
+\int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi}
+$$
+
+亦支持 `\(\)` 与 `\[\]` 写法。若美元符号与文字冲突，可用反斜杠转义或改用 `\(...\)`。
+
 ---
 
-以上内容在站点中会通过 Markdown 解析器渲染为 HTML。
+以上内容在站点中会通过 Markdown 与 KaTeX 渲染为 HTML。
