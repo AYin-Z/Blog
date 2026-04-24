@@ -12,23 +12,21 @@
     "pinned": true
   },
   {
-    "slug": "大标题测试",
-    "title": "标题测试",
-    "date": "2026-04-24",
-    "excerpt": "摘要测试obsidian移动端同步21：33",
-    "category": "孤岛",
-    "tags": [
-      "Markdown",
-      "博客",
-      "#测试标签"
-    ],
-    "pinned": true
-  },
-  {
     "slug": "Thought 19Y",
     "title": "Thought 19Y",
     "date": "2026-03-02",
     "excerpt": "To my year 19.",
+    "category": "孤岛",
+    "tags": [
+      "Thoughts"
+    ],
+    "pinned": true
+  },
+  {
+    "slug": "Thought Coming-Of-Age",
+    "title": "Coming-Of-Age",
+    "date": "2025-03-02",
+    "excerpt": "To my year 18.",
     "category": "孤岛",
     "tags": [
       "Thoughts"
@@ -47,6 +45,19 @@
     "pinned": true
   },
   {
+    "slug": "大标题测试",
+    "title": "标题测试",
+    "date": "2026-04-24",
+    "excerpt": "摘要测试obsidian移动端同步21：33",
+    "category": "孤岛",
+    "tags": [
+      "Markdown",
+      "博客",
+      "#测试标签"
+    ],
+    "pinned": false
+  },
+  {
     "slug": "markdown-tips",
     "title": "Markdown 写作小抄",
     "date": "2026-04-20",
@@ -62,19 +73,12 @@
   {
     "slug": "Thought 2023",
     "title": "Thought 2023",
-    "date": "1970-01-01",
-    "excerpt": "2024-1-26",
+    "date": "2024-01-26",
+    "excerpt": "To remind 2023.",
     "category": "孤岛",
-    "tags": [],
-    "pinned": false
-  },
-  {
-    "slug": "Thought Coming-Of-Age",
-    "title": "Thought Coming-Of-Age",
-    "date": "1970-01-01",
-    "excerpt": "“非要落笔皆是高潮？",
-    "category": "孤岛",
-    "tags": [],
+    "tags": [
+      "Thoughts"
+    ],
     "pinned": false
   }
 ]
