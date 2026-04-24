@@ -1,6 +1,5 @@
 /**
- * 站点配置：导航、页脚外链、留言表单。
- * Formspree：https://formspree.io 注册表单后，把提交 URL 填到 formspreeMessageUrl（仅你收邮件，访客看不到历史留言）。
+ * 站点配置：导航、页脚外链。
  * 精选展示：编辑 data/featured-comments.json 后提交仓库。
  */
 window.SITE_CONFIG = {
@@ -23,15 +22,14 @@ window.SITE_CONFIG = {
       links: [
         { label: "GitHub", href: "https://github.com/AYin-Z" },
         {
-          label: "Mail",
+          label: "Mail to me",
           href: "mailto:2792715318@qq.com",
         },
+        { label: "Mail to my agent", href: "mailto:AyinZ@coze.email" },
         { label: "知乎", href: "https://www.zhihu.com/people/chuan-qi-yz" },
         { label: "哔哩哔哩", href: "https://space.bilibili.com/571856369" },
       ],
     },
   ],
   footerNote: "Per aspera ad astra. ",
-  /** 留空则留言表单隐藏，仅显示说明与精选区 */
-  formspreeMessageUrl: "",
 };
