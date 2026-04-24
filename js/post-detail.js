@@ -14,6 +14,13 @@
     return;
   }
 
+  function stripYamlFrontmatter(md) {
+    if (typeof md !== "string" || md.substring(0, 3) !== "---") return md;
+    var m = md.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
+    if (!m) return md;
+    return md.slice(m[0].length).replace(/^\n+/, "");
+  }
+
   function renderMath() {
     if (typeof renderMathInElement !== "function") return;
     renderMathInElement(bodyEl, {
@@ -66,6 +73,7 @@
         throw new Error("找不到该文章的 Markdown 文件（posts/" + slug + ".md）。");
       }
       var md = await mdRes.text();
+      md = stripYamlFrontmatter(md);
       bodyEl.innerHTML = marked.parse(md, { gfm: true, breaks: true });
       renderMath();
     } catch (e) {

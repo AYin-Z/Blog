@@ -5,17 +5,11 @@
     "date": "2026-04-24",
     "excerpt": "第一篇示例：站点结构、GitHub Pages 与 Obsidian 协作提示。",
     "category": "站务",
-    "tags": ["博客", "GitHub Pages"],
+    "tags": [
+      "博客",
+      "GitHub Pages"
+    ],
     "pinned": true
-  },
-  {
-    "slug": "markdown-tips",
-    "title": "Markdown 写作小抄",
-    "date": "2026-04-20",
-    "excerpt": "常用语法、图片路径、LaTeX 公式与嵌入媒体说明。",
-    "category": "写作",
-    "tags": ["Markdown", "LaTeX", "教程"],
-    "pinned": false
   },
   {
     "slug": "测试",
@@ -23,7 +17,23 @@
     "date": "2026-04-24",
     "excerpt": "Obsidian 与 Git 同步测试文章。",
     "category": "随笔",
-    "tags": ["测试", "Obsidian"],
+    "tags": [
+      "测试",
+      "Obsidian"
+    ],
+    "pinned": false
+  },
+  {
+    "slug": "markdown-tips",
+    "title": "Markdown 写作小抄",
+    "date": "2026-04-20",
+    "excerpt": "常用语法、图片路径、LaTeX 公式与嵌入媒体说明。",
+    "category": "写作",
+    "tags": [
+      "Markdown",
+      "LaTeX",
+      "教程"
+    ],
     "pinned": false
   }
 ]

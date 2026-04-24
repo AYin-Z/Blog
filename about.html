@@ -19,8 +19,31 @@
       <article class="article-body about-prose">
         <h2>站点</h2>
         <p>
-          静态博客托管于 GitHub Pages，无构建步骤：HTML / CSS / JS 直出，文章为
-          <code>posts/*.md</code>，索引为根目录 <code>posts.json</code>。
+          静态博客托管于 GitHub Pages：HTML / CSS / JS 直出；文章为顶层
+          <code>posts/*.md</code>（勿把正文只放在子目录里，否则无法生成索引与
+          <code>post.html?slug=</code> 路径）。列表索引为根目录 <code>posts.json</code>，由推送到
+          <code>main</code> 时的 GitHub Actions 根据各篇 YAML 头<strong>自动生成</strong>，无需手改。
+        </p>
+
+        <h2>文章 YAML（与 Obsidian 兼容）</h2>
+        <p>每篇 <code>posts/某标题.md</code> 开头使用 front matter，例如：</p>
+        <pre class="about-code"><code>---
+title: 我的第一篇博客
+date: 2026-04-24
+categories:
+  - 技术
+tags:
+  - Markdown
+  - 博客
+pinned: false
+excerpt: 可选；不写则从正文首段自动生成摘要
+---
+
+正文 Markdown…</code></pre>
+        <p>
+          <code>categories</code> 取<strong>第一项</strong>作为站点里的「分类」字段；也可用单行
+          <code>category: 技术</code>。<code>slug</code> 由<strong>文件名</strong>决定（不含
+          <code>.md</code>）。推送 <code>main</code> 后约 1～3 分钟站点与索引会更新。
         </p>
 
         <h2>用 Obsidian 当「编辑器」</h2>
@@ -50,8 +73,7 @@
 
         <h2>后续：朋友圈等内容</h2>
         <p>
-          若要把朋友圈择优同步到博客，可在试验分支维护独立页面或 JSON 数据源，再合并到主分支发布——当前实验功能在
-          <code>dev/experiment</code> 分支开发。
+          若要把朋友圈择优同步到博客，可在试验分支维护独立页面或 JSON 数据源，再合并到主分支发布。
         </p>
       </article>
     </main>

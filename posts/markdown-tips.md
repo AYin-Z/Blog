@@ -1,3 +1,16 @@
+---
+title: Markdown 写作小抄
+date: 2026-04-20
+categories:
+  - 写作
+tags:
+  - Markdown
+  - LaTeX
+  - 教程
+pinned: false
+excerpt: 常用语法、图片路径、LaTeX 公式与嵌入媒体说明。
+---
+
 # Markdown 写作小抄
 
 下面是写博客时常用的 Markdown 语法示例。
