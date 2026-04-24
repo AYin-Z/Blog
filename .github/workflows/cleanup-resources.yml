@@ -1,0 +1,48 @@
+# 清理根目录中未被引用的资源，移动到 _trash/
+name: Cleanup Resources
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "posts/**/*.md"
+      - "posts/**/*"
+      - "scripts/cleanup_resources.py"
+      - ".github/workflows/cleanup-resources.yml"
+  schedule:
+    - cron: "0 3 * * *"  # 每天凌晨3点自动清理
+  workflow_dispatch:  # 手动触发
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Cleanup resources
+        run: python scripts/cleanup_resources.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          if [ -d "_trash" ]; then
+            git add _trash/
+          fi
+          
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          
+          git commit -m "chore: move unreferenced resources to _trash/"
+          git push
