@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Scan posts/*.md for embedded resources, find them in root directory,
-move to resource/{slug}/ folder, and update the links in articles.
+move images to resource/{slug}/ folder, and convert post links.
 """
 import os
 import re
@@ -12,13 +12,20 @@ ROOT = Path(__file__).resolve().parent.parent
 POSTS_DIR = ROOT / "posts"
 RESOURCE_DIR = ROOT / "resource"
 
+# Image extensions
+IMAGE_EXTS = {'.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.bmp'}
 # All supported extensions
-ALL_EXTS = {'.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.bmp', '.pdf', '.zip', '.mp3', '.mp4', '.mov', '.avi'}
+ALL_EXTS = IMAGE_EXTS | {'.pdf', '.zip', '.mp3', '.mp4', '.mov', '.avi'}
 
-def find_resources_in_file(filepath: Path) -> list[tuple[str, str]]:
+def is_image(filename: str) -> bool:
+    """Check if filename is an image."""
+    lower = filename.lower()
+    return any(lower.endswith(ext) for ext in IMAGE_EXTS)
+
+def find_resources_in_file(filepath: Path) -> list:
     """
     Find all resource references in a markdown file.
-    Returns list of (full_match, link_path) tuples.
+    Returns list of (full_match, link_path, is_image) tuples.
     """
     resources = []
     content = filepath.read_text(encoding='utf-8')
@@ -29,13 +36,15 @@ def find_resources_in_file(filepath: Path) -> list[tuple[str, str]]:
         link = match.group(2)
         if link.startswith(('http://', 'https://', '/', 'data:', 'resource/')):
             continue
-        resources.append((match.group(0), link))
+        filename = os.path.basename(link)
+        resources.append((match.group(0), link, is_image(filename)))
     
-    # Match Obsidian embeds: ![[path]]
-    embed_pattern = r'!\[\[([^\]|]+)(?:\|[^\]]+)?\]\]'
+    # Match Obsidian embeds: ![[path|alias]]
+    embed_pattern = r'!\[\[([^\]|]+)(?:\|([^\]]+))?\]\]'
     for match in re.finditer(embed_pattern, content):
         link = match.group(1)
-        resources.append((match.group(0), link))
+        filename = os.path.basename(link)
+        resources.append((match.group(0), link, is_image(filename)))
     
     return resources
 
@@ -47,50 +56,64 @@ def get_all_root_files() -> dict:
             files[f.name.lower()] = f
     return files
 
+def slugify(title: str) -> str:
+    """Convert title to URL-safe slug."""
+    # Remove file extension
+    title = re.sub(r'\.md$', '', title)
+    return title
+
 def process_post(post_file: Path, root_files: dict) -> bool:
     """
-    Process a single post: find resources, move them, update links.
+    Process a single post: find resources, move images, convert post links.
     Returns True if any changes were made.
     """
     slug = post_file.stem
     content = post_file.read_text(encoding='utf-8')
-    original_content = content
     changes_made = False
     
     # Create resource directory
     resource_post_dir = RESOURCE_DIR / slug
     resource_post_dir.mkdir(parents=True, exist_ok=True)
     
-    for full_match, link in find_resources_in_file(post_file):
-        # Get filename from link
+    for full_match, link, is_img in find_resources_in_file(post_file):
         filename = os.path.basename(link)
         filename_lower = filename.lower()
         
-        # Check if file exists in root
-        if filename_lower not in root_files:
-            continue
-        
-        source_file = root_files[filename_lower]
-        
-        # New path in resource folder
-        new_filename = filename
-        new_path = resource_post_dir / new_filename
-        
-        # Copy file to resource folder
-        shutil.copy2(source_file, new_path)
-        
-        # Generate new link
-        new_link = f"resource/{slug}/{new_filename}"
-        
-        # Replace link in content
-        if full_match.startswith('![['):
-            new_match = f"![]({new_link})"
+        if is_img:
+            # Handle image: move to resource folder
+            if filename_lower not in root_files:
+                continue
+            
+            source_file = root_files[filename_lower]
+            new_path = resource_post_dir / filename
+            
+            # Copy file to resource folder
+            shutil.copy2(source_file, new_path)
+            
+            # Update link to resource path
+            new_link = f"resource/{slug}/{filename}"
+            content = content.replace(full_match, f"![]({new_link})", 1)
+            changes_made = True
+            print(f"  [IMAGE] {filename} -> resource/{slug}/")
         else:
-            new_match = f"![]({new_link})"
-        
-        content = content.replace(full_match, new_match, 1)
-        changes_made = True
-        print(f"  {filename} -> resource/{slug}/")
+            # Handle post reference: convert to link
+            post_slug = slugify(filename)
+            # Convert ![[xxx|alias]] or [[xxx|alias]] to link
+            content = re.sub(
+                r'!?\[\[([^\]|]+)\|([^\]]+)\]\]',
+                f'<a href="post.html?slug={post_slug}">\\2</a>',
+                content,
+                count=1
+            )
+            # Also handle ![[xxx]]
+            content = re.sub(
+                r'!\[\[([^\]|]+)\]\]',
+                f'<a href="post.html?slug={post_slug}">\\1</a>',
+                content,
+                count=1
+            )
+            changes_made = True
+            print(f"  [POST] {filename} -> post.html?slug={post_slug}")
     
     if changes_made:
         post_file.write_text(content, encoding='utf-8')
@@ -98,19 +121,14 @@ def process_post(post_file: Path, root_files: dict) -> bool:
     return changes_made
 
 def main():
-    print("Scanning posts for embedded resources in root directory...")
+    print("Scanning posts for embedded resources...")
     
     root_files = get_all_root_files()
-    if not root_files:
-        print("No attachment files found in root directory.")
-        return
-    
-    print(f"Found {len(root_files)} files in root directory: {', '.join(f.name for f in root_files.values())}")
+    print(f"Found {len(root_files)} attachment files in root directory.")
     
     changes_made = False
     
     for post_file in sorted(POSTS_DIR.glob("*.md")):
-        slug = post_file.stem
         if process_post(post_file, root_files):
             changes_made = True
             print(f"Updated: {post_file.name}")
@@ -118,7 +136,7 @@ def main():
     if changes_made:
         print("\nResource organization complete!")
     else:
-        print("\nNo resources to organize.")
+        print("\nNo changes needed.")
 
 if __name__ == "__main__":
     main()

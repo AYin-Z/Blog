@@ -21,10 +21,28 @@
     return md.slice(m[0].length).replace(/^\n+/, "");
   }
 
+  // 图片扩展名
+  var IMAGE_EXTS = ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.bmp'];
+
+  function isImage(filename) {
+    var lower = filename.toLowerCase();
+    return IMAGE_EXTS.some(function(ext) { return lower.endsWith(ext); });
+  }
+
   function convertObsidianEmbeds(md) {
-    // Convert ![[file]] to ![](file)
-    md = md.replace(/!\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, function(match, filename, alias) {
-      return "![" + (alias || filename) + "](" + filename + ")";
+    // Convert ![[file|alias]] to proper format
+    md = md.replace(/!\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, function(match, path, alias) {
+      var name = alias || path;
+      var filename = path.split('/').pop(); // Get filename
+      
+      if (isImage(filename)) {
+        // Image: convert to markdown image
+        return "![" + name + "](" + path + ")";
+      } else {
+        // Not an image: convert to link to post
+        var targetSlug = filename.replace(/\.md$/, '');
+        return "<a href=\"post.html?slug=" + encodeURIComponent(targetSlug) + "\">" + name + "</a>";
+      }
     });
     return md;
   }
