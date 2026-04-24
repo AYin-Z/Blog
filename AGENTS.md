@@ -39,13 +39,33 @@ YINZ7032 的个人静态博客，基于纯 HTML/CSS/JS 构建，部署于 GitHub
 │   ├── welcome.md
 │   ├── markdown-tips.md
 │   └── ...
+├── _comments/           # 访客留言源文件
+│   ├── README.md        # 留言同步说明
+│   └── *.md             # 留言文件
 ├── data/
-│   └── featured-comments.json  # 精选留言
+│   └── featured-comments.json  # 精选留言（自动生成）
 └── scripts/
     ├── build_posts_index.py     # 生成 posts.json
     ├── coze-preview-build.sh    # 预览构建
     └── coze-preview-run.sh      # 预览运行
 ```
+
+## 留言精选工作流
+
+```
+访客提交留言 (Formspree)
+    ↓
+创建 _comments/{date}-{slug}.md (approved: false)
+    ↓
+Obsidian 拉取 → 你编辑 approved: true
+    ↓
+提交到 main → GitHub Action 生成 featured-comments.json
+    ↓
+博客留言板展示精选内容
+```
+
+**GitHub Actions**:
+- `sync-comments.yml`: 扫描 `_comments/`，筛选 `approved: true` 生成精选
 
 ## 关键入口 / 核心模块
 
