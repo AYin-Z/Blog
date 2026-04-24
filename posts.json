@@ -15,11 +15,11 @@
     "slug": "测试",
     "title": "测试",
     "date": "2026-04-24",
-    "excerpt": "Obsidian 与 Git 同步测试文章。",
-    "category": "随笔",
+    "excerpt": "测试obsidian移动端同步",
+    "category": "技术",
     "tags": [
-      "测试",
-      "Obsidian"
+      "Markdown",
+      "博客"
     ],
     "pinned": false
   },
