@@ -1,0 +1,95 @@
+# 同步 GitHub Discussions 到 _comments/ 目录（用于 Obsidian 精选）
+name: Sync Discussions to Comments
+
+on:
+  discussion:
+    types: [created, edited, deleted]
+  schedule:
+    - cron: "0 */6 * * *"  # 每6小时同步一次
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  discussions: read
+
+jobs:
+  sync-discussions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync discussions to _comments/
+        id: sync
+        run: |
+          python3 << 'EOF'
+          import os
+          import re
+          import json
+          import subprocess
+          from datetime import datetime
+
+          # 使用 gh CLI 获取 discussions
+          result = subprocess.run(
+              ["gh", "api", "repos/AYin-Z/Blog/discussions", "--jq", ".[] | {number: .number, title: .title, body: .body, createdAt: .createdAt, author: .author.login}"],
+              capture_output=True, text=True
+          )
+
+          if result.returncode != 0:
+              print("Failed to fetch discussions")
+              print(result.stderr)
+              exit(0)
+
+          discussions = []
+          for line in result.stdout.strip().split('\n'):
+              if line:
+                  discussions.append(json.loads(line))
+
+          print(f"Found {len(discussions)} discussions")
+
+          # 确保 _comments 目录存在
+          os.makedirs("_comments", exist_ok=True)
+
+          for d in discussions:
+              number = d.get("number", "")
+              title = d.get("title", "")
+              body = d.get("body", "").strip()
+              created = d.get("createdAt", "")
+              author = d.get("author", "anonymous")
+
+              if not body:
+                  continue
+
+              # 生成文件名
+              date_str = created[:10] if created else datetime.now().strftime("%Y-%m-%d")
+              safe_title = re.sub(r'[^\w\-]', '-', title)[:50]
+              filename = f"_comments/{date_str}-discussion-{number}.md"
+
+              # 生成 markdown 内容
+              content = f"""---
+name: {author}
+date: {created}
+approved: false
+---
+
+{body}
+"""
+
+              with open(filename, "w", encoding="utf-8") as f:
+                  f.write(content)
+
+              print(f"Synced: {filename}")
+
+          print("Sync complete")
+          EOF
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _comments/
+          if git diff --cached --quiet; then
+            echo "No changes to _comments/"
+            exit 0
+          fi
+          git commit -m "chore: sync discussions to _comments/"
+          git push

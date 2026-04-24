@@ -6,6 +6,22 @@
     <meta name="description" content="留言与精选" />
     <title>留言 · YINZ7032's Blog</title>
     <link rel="stylesheet" href="css/style.css" />
+    <script
+      src="https://giscus.app/client.js"
+      data-repo="AYin-Z/Blog"
+      data-repo-id="R_kgDOSLNHIQ"
+      data-category="General"
+      data-category-id=""
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="dark"
+      data-lang="zh-CN"
+      crossorigin="anonymous"
+      async
+    ></script>
   </head>
   <body data-page="guestbook">
     <header class="site-header" id="site-header"></header>
@@ -16,8 +32,8 @@
       </nav>
       <h1 class="page-title">留言</h1>
       <p class="page-desc">
-        访客提交的内容可通过 Formspree 仅发送到你的邮箱；下方「精选」为仓库中的公开展示，由你手动编辑
-        <code>data/featured-comments.json</code> 维护。
+        访客可通过 GitHub 账号登录后留言。留言自动同步到仓库
+        <a href="https://github.com/AYin-Z/Blog/discussions" target="_blank" rel="noopener">Discussions</a>。
       </p>
 
       <h2 class="section-title">精选展示</h2>
@@ -25,7 +41,7 @@
       <div id="featured-messages" class="featured-list"></div>
 
       <h2 class="section-title">给我留言</h2>
-      <div id="guestbook-form-wrap"></div>
+      <div class="giscus"></div>
     </main>
 
     <footer class="site-footer site-footer--rich" id="site-footer"></footer>
