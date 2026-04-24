@@ -92,6 +92,9 @@
     try {
       localStorage.setItem("blog-theme", mode);
     } catch (e) {}
+    try {
+      window.dispatchEvent(new CustomEvent("blog-theme-change", { detail: { mode: mode } }));
+    } catch (e) {}
   }
 
   try {

@@ -1,7 +1,6 @@
 /**
- * 站点配置：导航、页脚外链、留言表单。
- * Formspree：https://formspree.io 注册表单后，把提交 URL 填到 formspreeMessageUrl（仅你收邮件，访客看不到历史留言）。
- * 精选展示：编辑 data/featured-comments.json 后提交仓库。
+ * 站点配置：导航、页脚、Giscus 留言。
+ * Giscus：https://giscus.app/zh-CN 填写仓库与讨论分类后，把生成的 repo-id、category-id 等填入下方 giscus。
  */
 window.SITE_CONFIG = {
   title: "YINZ7032's Blog",
@@ -31,7 +30,21 @@ window.SITE_CONFIG = {
       ],
     },
   ],
-  footerNote: "Per aspera ad astra. · 静态托管 GitHub Pages",
-  /** 留空则留言表单隐藏，仅显示说明与精选区 */
-  formspreeMessageUrl: "",
+  footerNote: "Per aspera ad astra. ",
+  /**
+   * Giscus（GitHub Discussions）。需先在仓库 Settings 中启用 Discussions。
+   * 在 https://giscus.app/zh-CN 配置后复制 repoId、categoryId 等填入。
+   */
+  giscus: {
+    repo: "AYin-Z/Blog",
+    repoId: "",
+    category: "Announcements",
+    categoryId: "",
+    mapping: "pathname",
+    strict: 0,
+    reactionsEnabled: true,
+    emitMetadata: false,
+    inputPosition: "bottom",
+    lang: "zh-CN",
+  },
 };
