@@ -275,6 +275,41 @@ main {
   color: var(--text-muted);
 }
 
+/* 分类样式 */
+.article-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.article-category svg {
+  opacity: 0.7;
+}
+.article-category a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.article-category a:hover {
+  opacity: 0.8;
+}
+
+/* 标签样式 */
+.article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  align-items: center;
+}
+.meta-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-right: 0.25rem;
+}
+
 .article-body {
   max-width: var(--max-width);
 }
@@ -319,12 +354,16 @@ main {
 }
 
 .article-body blockquote {
-  margin: 1rem 0;
-  padding: 0.5rem 0 0.5rem 1rem;
-  border-left: 3px solid var(--accent);
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border-left: 4px solid var(--accent);
+  background: linear-gradient(135deg, var(--bg-elevated), rgba(110, 231, 183, 0.05));
   color: var(--text-muted);
-  background: var(--bg-elevated);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-style: italic;
+}
+.article-body blockquote p:last-child {
+  margin-bottom: 0;
 }
 
 .article-body a {
@@ -341,14 +380,15 @@ main {
 }
 
 .article-body pre {
-  margin: 1rem 0;
-  padding: 1rem 1.1rem;
+  margin: 1.5rem 0;
+  padding: 1.25rem 1.5rem;
   overflow-x: auto;
-  background: #0a0c10;
+  background: #0d1117;
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius);
   font-size: 0.88rem;
-  line-height: 1.5;
+  line-height: 1.6;
+  position: relative;
 }
 
 .article-body pre code {
@@ -361,19 +401,31 @@ main {
 .article-body table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1rem 0;
+  margin: 1.5rem 0;
   font-size: 0.92rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
 }
 
 .article-body th,
 .article-body td {
-  border: 1px solid var(--border);
-  padding: 0.5rem 0.75rem;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1rem;
   text-align: left;
+}
+.article-body tr:last-child td {
+  border-bottom: none;
 }
 
 .article-body th {
   background: var(--bg-elevated);
+  font-weight: 600;
+}
+
+.article-body tr:hover td {
+  background: rgba(110, 231, 183, 0.03);
 }
 
 .article-body hr {
@@ -386,6 +438,51 @@ main {
   max-width: 100%;
   height: auto;
   border-radius: var(--radius-sm);
+  margin: 1.5rem auto;
+  display: block;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* 图片标题/说明 */
+.article-body img + em {
+  display: block;
+  text-align: center;
+  margin-top: -1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* 链接样式 */
+.article-body a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+.article-body a:hover {
+  border-bottom-color: var(--accent);
+}
+
+/* 强调文字 */
+.article-body strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* 任务列表 */
+.article-body input[type="checkbox"] {
+  margin-right: 0.5em;
+  accent-color: var(--accent);
+}
+
+/* 脚注 */
+.article-body .footnotes {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.9rem;
+  color: var(--text-muted);
 }
 
 .msg {
@@ -780,6 +877,33 @@ html[data-theme="light"] .tag-card {
     hsla(var(--tag-hue), 42%, 88%, 0.95),
     hsla(calc(var(--tag-hue) + 40), 38%, 82%, 0.92)
   );
+}
+
+/* 浅色主题适配 */
+html[data-theme="light"] .article-body blockquote {
+  background: linear-gradient(135deg, #f0fdf4, rgba(5, 150, 105, 0.05));
+  border-left-color: #059669;
+}
+
+html[data-theme="light"] .article-body pre {
+  background: #f6f8fa;
+  border-color: #d0d7de;
+}
+
+html[data-theme="light"] .article-body img {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+html[data-theme="light"] .article-body strong {
+  color: #059669;
+}
+
+html[data-theme="light"] .article-body table {
+  border-color: #d0d7de;
+}
+
+html[data-theme="light"] .article-body tr:hover td {
+  background: rgba(5, 150, 105, 0.05);
 }
 
 html[data-theme="light"] .tag-card__name {

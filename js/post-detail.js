@@ -94,6 +94,16 @@
         tagsEl.hidden = false;
       }
 
+      // Render category
+      var categoryEl = document.getElementById("article-category");
+      var categoryLinkEl = document.getElementById("article-category-link");
+      if (categoryEl && meta && meta.categories && meta.categories.length) {
+        var cat = meta.categories[0];
+        categoryLinkEl.textContent = cat;
+        categoryLinkEl.href = "category.html?category=" + encodeURIComponent(cat);
+        categoryEl.hidden = false;
+      }
+
       var mdRes = await fetch("posts/" + encodeURIComponent(slug) + ".md");
       if (!mdRes.ok) {
         throw new Error("找不到该文章的 Markdown 文件（posts/" + slug + ".md）。");
