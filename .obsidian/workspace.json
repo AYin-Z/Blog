@@ -1,0 +1,230 @@
+{
+  "main": {
+    "id": "1c308d5ac77536a0",
+    "type": "split",
+    "children": [
+      {
+        "id": "c2782a35d584b2ab",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a8502eb024b045ad",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "posts/260410.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "260410"
+            }
+          },
+          {
+            "id": "3e961af9a3a8811a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "conflict-files-obsidian-git.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "conflict-files-obsidian-git"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "19f36ab0b18132a4",
+    "type": "split",
+    "children": [
+      {
+        "id": "a1a7155be4169218",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4305f44e88362d06",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "a8d183f47261a918",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "7556b89a0e25251f",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "c7353c7fecf8aa2d",
+    "type": "split",
+    "children": [
+      {
+        "id": "adeb6a2200c79f0e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "01ad372a03fe9f2c",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "conflict-files-obsidian-git.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "conflict-files-obsidian-git 的反向链接列表"
+            }
+          },
+          {
+            "id": "83682234755c55d4",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "conflict-files-obsidian-git.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "conflict-files-obsidian-git 的出链列表"
+            }
+          },
+          {
+            "id": "4788e20470ea5fcf",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "76e51e04ae50e9c9",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "conflict-files-obsidian-git.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "conflict-files-obsidian-git 的大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "markdown-importer:打开 Markdown 格式转换器": false,
+      "zk-prefixer:创建时间戳笔记": false,
+      "bases:新建数据库": false,
+      "obsidian-git:Open Git source control": false
+    }
+  },
+  "active": "3e961af9a3a8811a",
+  "lastOpenFiles": [
+    "posts/260410.md",
+    "conflict-files-obsidian-git.md",
+    "scripts/organize_resources.py",
+    "scripts/coze-preview-run.sh",
+    "scripts/coze-preview-build.sh",
+    "scripts/cleanup_resources.py",
+    "resource/markdown-tips/demo.svg",
+    "resource/大标题测试/Screenshot_2026-04-24-18-36-12-975_com.termux.jpg",
+    "resource/260325_log/mmexport1774452139638.jpg",
+    "resource/welcome/demo.svg",
+    "resource/250530_离校/mmexport1777077016663.jpg",
+    "resource/大标题测试",
+    "resource/welcome",
+    "resource/markdown-tips",
+    "resource/260325_log",
+    "resource/250530_离校",
+    "resource",
+    "posts/大标题测试.md",
+    "posts/260325_log.md",
+    "posts/260302_我站在人潮中央.md",
+    "posts/260101_memo.md",
+    "posts/250530_离校.md",
+    "posts/250518_飞光，飞光.md",
+    "posts/250401_雨.md",
+    "posts/240817_小王子与狐狸.md",
+    "posts/240813_我写我.md",
+    "posts/240810_星.md",
+    "posts/240301_《借我》.md",
+    "posts/240211_年.md",
+    "posts/240126_尖塔.md",
+    "posts/231231_烟火起，照人间，举杯敬此年。.md",
+    "mmexport1777077016663.jpg",
+    "mmexport1774452139638.jpg",
+    "assets/image.png",
+    "_trash/Screenshot_2026-04-24-18-10-32-394_md.obsidian_9.jpg",
+    "_trash/Screenshot_2026-04-24-18-10-32-394_md.obsidian_8.jpg",
+    "AGENTS.md"
+  ]
+}

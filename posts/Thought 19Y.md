@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+- [ ] Thought 19Y ⏫ 📅 2026-03-02
+=======
 ---
 title: Thought 19Y
 date: 2026-03-02
@@ -44,3 +47,4 @@ excerpt: To my year 19.
 
 *—— Ayin*
 *2026.3.2*
+>>>>>>> origin/main

@@ -774,6 +774,15 @@ a.tag-pill--link:hover {
   filter: brightness(1.05);
 }
 
+.giscus-wrap {
+  margin-top: 1.5rem;
+  min-height: 8rem;
+}
+
+.giscus-wrap .giscus {
+  width: 100%;
+}
+
 .about-prose h2:first-child {
   margin-top: 0;
 }
