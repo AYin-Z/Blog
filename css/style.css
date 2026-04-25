@@ -823,6 +823,35 @@ a.tag-pill--link:hover {
   margin-top: 0;
 }
 
+.about-signature {
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.about-prose details {
+  margin-top: 0.5rem;
+}
+
+.about-prose details summary {
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding: 0.5rem 0;
+  user-select: none;
+}
+
+.about-prose details summary:hover {
+  color: var(--accent);
+}
+
+.about-prose details[open] summary {
+  margin-bottom: 1rem;
+}
+
 .about-prose .about-code {
   margin: 1rem 0;
   padding: 1rem 1.1rem;
