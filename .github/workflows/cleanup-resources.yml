@@ -22,6 +22,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -45,4 +48,5 @@ jobs:
           fi
           
           git commit -m "chore: move unreferenced resources to _trash/"
-          git push
+          git pull --rebase origin main || git rebase --abort && exit 0
+          git push origin main
