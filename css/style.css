@@ -852,6 +852,22 @@ a.tag-pill--link:hover {
   margin-bottom: 1rem;
 }
 
+.coffee-details summary {
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding: 0.5rem 0;
+  user-select: none;
+}
+
+.coffee-details summary:hover {
+  color: var(--accent);
+}
+
+.coffee-details[open] summary {
+  margin-bottom: 1rem;
+}
+
 .coffee-qrs {
   display: flex;
   gap: 2rem;
