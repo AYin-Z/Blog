@@ -29,6 +29,36 @@
     return IMAGE_EXTS.some(function(ext) { return lower.endsWith(ext); });
   }
 
+  function protectMath(md) {
+    // Protect math delimiters from marked's escaping
+    var mathBlocks = [];
+    // Block math: $$...$$ or \[...\]
+    md = md.replace(/\$\$([\s\S]*?)\$\$/g, function (m) {
+      mathBlocks.push(m);
+      return "MATHBLOCK" + (mathBlocks.length - 1) + "ENDMATH";
+    });
+    md = md.replace(/\\\[([\s\S]*?)\\\]/g, function (m) {
+      mathBlocks.push(m);
+      return "MATHBLOCK" + (mathBlocks.length - 1) + "ENDMATH";
+    });
+    // Inline math: $...$ or \(...\)
+    md = md.replace(/\$([^\$\n]+?)\$/g, function (m) {
+      mathBlocks.push(m);
+      return "MATHBLOCK" + (mathBlocks.length - 1) + "ENDMATH";
+    });
+    md = md.replace(/\\\(([\s\S]*?)\\\)/g, function (m) {
+      mathBlocks.push(m);
+      return "MATHBLOCK" + (mathBlocks.length - 1) + "ENDMATH";
+    });
+    return { text: md, blocks: mathBlocks };
+  }
+
+  function restoreMath(html, blocks) {
+    return html.replace(/MATHBLOCK(\d+)ENDMATH/g, function (m, idx) {
+      return blocks[parseInt(idx)];
+    });
+  }
+
   function convertObsidianEmbeds(md) {
     // Convert ![[file|alias]] to proper format
     md = md.replace(/!\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, function(match, path, alias) {
@@ -111,7 +141,9 @@
       var md = await mdRes.text();
       md = stripYamlFrontmatter(md);
       md = convertObsidianEmbeds(md);
-      bodyEl.innerHTML = marked.parse(md, { gfm: true, breaks: true });
+      var mathProtected = protectMath(md);
+      bodyEl.innerHTML = marked.parse(mathProtected.text, { gfm: true, breaks: true });
+      bodyEl.innerHTML = restoreMath(bodyEl.innerHTML, mathProtected.blocks);
       renderMath();
     } catch (e) {
       errEl.hidden = false;
