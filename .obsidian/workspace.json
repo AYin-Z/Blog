@@ -13,30 +13,15 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "posts/260410.md",
+                "file": "posts/markdown-tips.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "260410"
-            }
-          },
-          {
-            "id": "3e961af9a3a8811a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "conflict-files-obsidian-git.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "conflict-files-obsidian-git"
+              "title": "markdown-tips"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -109,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "conflict-files-obsidian-git.md",
+                "file": "posts/markdown-tips.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -119,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "conflict-files-obsidian-git 的反向链接列表"
+              "title": "markdown-tips 的反向链接列表"
             }
           },
           {
@@ -128,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "conflict-files-obsidian-git.md",
+                "file": "posts/markdown-tips.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "conflict-files-obsidian-git 的出链列表"
+              "title": "markdown-tips 的出链列表"
             }
           },
           {
@@ -157,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "conflict-files-obsidian-git.md",
+                "file": "posts/markdown-tips.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "conflict-files-obsidian-git 的大纲"
+              "title": "markdown-tips 的大纲"
             }
           }
         ]
@@ -187,9 +172,19 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "3e961af9a3a8811a",
+  "active": "a8502eb024b045ad",
   "lastOpenFiles": [
+    "posts/大标题测试.md",
+    "posts/Thought 17Y.md",
+    "posts/Thought 19Y.md",
+    "posts/Thought 2023.md",
+    "posts/240817_小王子与狐狸.md",
+    "posts/250401_雨.md",
+    "posts/250518_飞光，飞光.md",
     "posts/260410.md",
+    "_trash/favicon.svg",
+    "_trash/Screenshot_2026-04-24-18-10-32-394_md.obsidian_20.jpg",
+    "favicon.svg",
     "conflict-files-obsidian-git.md",
     "scripts/organize_resources.py",
     "scripts/coze-preview-run.sh",
@@ -206,14 +201,10 @@
     "resource/260325_log",
     "resource/250530_离校",
     "resource",
-    "posts/大标题测试.md",
     "posts/260325_log.md",
     "posts/260302_我站在人潮中央.md",
     "posts/260101_memo.md",
     "posts/250530_离校.md",
-    "posts/250518_飞光，飞光.md",
-    "posts/250401_雨.md",
-    "posts/240817_小王子与狐狸.md",
     "posts/240813_我写我.md",
     "posts/240810_星.md",
     "posts/240301_《借我》.md",
@@ -222,9 +213,6 @@
     "posts/231231_烟火起，照人间，举杯敬此年。.md",
     "mmexport1777077016663.jpg",
     "mmexport1774452139638.jpg",
-    "assets/image.png",
-    "_trash/Screenshot_2026-04-24-18-10-32-394_md.obsidian_9.jpg",
-    "_trash/Screenshot_2026-04-24-18-10-32-394_md.obsidian_8.jpg",
     "AGENTS.md"
   ]
 }
