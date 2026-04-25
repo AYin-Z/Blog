@@ -3,10 +3,11 @@ title: Thought 2023
 date: 2024-01-26
 categories:
   - 孤岛
+  - 摆渡
 tags:
   - Thoughts
 pinned: false
-excerpt: To remind 2023.
+excerpt: To remind me of 2023.
 ---
 
 ## 2024-1-26
