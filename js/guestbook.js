@@ -1,7 +1,11 @@
 (function () {
   var wrap = document.getElementById("giscus-container");
   var errEl = document.getElementById("guestbook-error");
+<<<<<<< HEAD
   var cfg = window.SITE_CONFIG && window.SITE_CONFIG.giscus;
+=======
+  var cfg = window.SITE_CONFIG;
+>>>>>>> origin/main
 
   function giscusTheme() {
     return document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
@@ -34,6 +38,7 @@
     return;
   }
 
+<<<<<<< HEAD
   if (errEl) errEl.hidden = true;
 
   var script = document.createElement("script");
@@ -65,4 +70,14 @@
       clearInterval(tid);
     }
   }, 200);
+=======
+  function escapeHtml(s) {
+    return String(s || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
+  loadFeatured();
+>>>>>>> origin/main
 })();

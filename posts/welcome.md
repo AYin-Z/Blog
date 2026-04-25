@@ -18,7 +18,7 @@ excerpt: 第一篇示例：站点结构、GitHub Pages 与 Obsidian 协作提示
 
 使用**相对网站根目录**的路径引用图片（与 Obsidian 同仓时便于对齐）：
 
-![](posts/welcome/demo.svg)
+![](resource/welcome/demo.svg)
 
 ## 你可以这样使用
 

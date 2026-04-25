@@ -1,6 +1,11 @@
 /**
+<<<<<<< HEAD
  * 站点配置：导航、页脚、Giscus 留言。
  * Giscus：https://giscus.app/zh-CN 填写仓库与讨论分类后，把生成的 repo-id、category-id 等填入下方 giscus。
+=======
+ * 站点配置：导航、页脚外链。
+ * 精选展示：编辑 data/featured-comments.json 后提交仓库。
+>>>>>>> origin/main
  */
 window.SITE_CONFIG = {
   title: "YINZ7032's Blog",
@@ -22,15 +27,17 @@ window.SITE_CONFIG = {
       links: [
         { label: "GitHub", href: "https://github.com/AYin-Z" },
         {
-          label: "YINZ7032",
-          href: "https://www.luogu.com.cn/space/show?username=YINZ7032",
+          label: "Mail to me",
+          href: "mailto:2792715318@qq.com",
         },
+        { label: "Mail to my agent", href: "mailto:AyinZ@coze.email" },
         { label: "知乎", href: "https://www.zhihu.com/people/chuan-qi-yz" },
         { label: "哔哩哔哩", href: "https://space.bilibili.com/571856369" },
       ],
     },
   ],
   footerNote: "Per aspera ad astra. ",
+<<<<<<< HEAD
   /**
    * Giscus（GitHub Discussions）。需先在仓库 Settings 中启用 Discussions。
    * 在 https://giscus.app/zh-CN 配置后复制 repoId、categoryId 等填入。
@@ -47,4 +54,6 @@ window.SITE_CONFIG = {
     inputPosition: "bottom",
     lang: "zh-CN",
   },
+=======
+>>>>>>> origin/main
 };

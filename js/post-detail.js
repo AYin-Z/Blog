@@ -21,6 +21,32 @@
     return md.slice(m[0].length).replace(/^\n+/, "");
   }
 
+  // 图片扩展名
+  var IMAGE_EXTS = ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.bmp'];
+
+  function isImage(filename) {
+    var lower = filename.toLowerCase();
+    return IMAGE_EXTS.some(function(ext) { return lower.endsWith(ext); });
+  }
+
+  function convertObsidianEmbeds(md) {
+    // Convert ![[file|alias]] to proper format
+    md = md.replace(/!\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, function(match, path, alias) {
+      var name = alias || path;
+      var filename = path.split('/').pop(); // Get filename
+      
+      if (isImage(filename)) {
+        // Image: convert to markdown image
+        return "![" + name + "](" + path + ")";
+      } else {
+        // Not an image: convert to link to post
+        var targetSlug = filename.replace(/\.md$/, '');
+        return "<a href=\"post.html?slug=" + encodeURIComponent(targetSlug) + "\">" + name + "</a>";
+      }
+    });
+    return md;
+  }
+
   function renderMath() {
     if (typeof renderMathInElement !== "function") return;
     renderMathInElement(bodyEl, {
@@ -68,12 +94,23 @@
         tagsEl.hidden = false;
       }
 
+      // Render category
+      var categoryEl = document.getElementById("article-category");
+      var categoryLinkEl = document.getElementById("article-category-link");
+      if (categoryEl && meta && meta.categories && meta.categories.length) {
+        var cat = meta.categories[0];
+        categoryLinkEl.textContent = cat;
+        categoryLinkEl.href = "category.html?category=" + encodeURIComponent(cat);
+        categoryEl.hidden = false;
+      }
+
       var mdRes = await fetch("posts/" + encodeURIComponent(slug) + ".md");
       if (!mdRes.ok) {
         throw new Error("找不到该文章的 Markdown 文件（posts/" + slug + ".md）。");
       }
       var md = await mdRes.text();
       md = stripYamlFrontmatter(md);
+      md = convertObsidianEmbeds(md);
       bodyEl.innerHTML = marked.parse(md, { gfm: true, breaks: true });
       renderMath();
     } catch (e) {

@@ -1,0 +1,16 @@
+# Obsidian
+.obsidian/workspace-mobile.json
+.obsidian/workspace
+.obsidian/graph.json
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 临时文件（如果你有）
+*.tmp
+*.log

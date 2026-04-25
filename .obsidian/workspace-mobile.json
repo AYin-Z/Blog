@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "BlogModel/BlogModel.md",
+                "file": "posts/测试.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "BlogModel"
+              "title": "测试"
             }
           }
         ],
@@ -141,7 +141,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "BlogModel/BlogModel.md",
+            "file": "posts/测试.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -200,8 +200,9 @@
   },
   "active": "343fdac25ec8b1fb",
   "lastOpenFiles": [
-    "posts/测试.md",
     "测试2.md",
+    "BlogModel/BlogModel.md",
+    "posts/测试.md",
     "tags.html",
     "tag.html",
     "scripts/build_posts_index.py",
@@ -219,7 +220,6 @@
     "/posts/markdown-tips.md",
     "未命名.md",
     "README.md",
-    "BlogModel/BlogModel.md",
     "posts/markdown-tips.md"
   ]
 }

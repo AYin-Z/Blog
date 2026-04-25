@@ -98,7 +98,15 @@ def normalize_pinned(meta: dict) -> bool:
 
 def build_entry(path: Path) -> dict:
     slug = path.stem
-    text = path.read_text(encoding="utf-8")
+    try:
+        text = path.read_text(encoding="utf-8")
+    except UnicodeDecodeError:
+        # Try with fallback encoding
+        try:
+            text = path.read_text(encoding="latin-1")
+        except Exception as e:
+            print(f"Error reading {slug}.md: {e}", file=sys.stderr)
+            raise
     meta, body = split_front_matter(text)
     title = meta.get("title")
     if title is None or str(title).strip() == "":
@@ -126,7 +134,21 @@ def main() -> None:
         print("posts/ not found", file=sys.stderr)
         sys.exit(1)
     paths = sorted(POSTS_DIR.glob("*.md"))
-    entries = [build_entry(p) for p in paths]
+    print(f"Found {len(paths)} markdown files in posts/")
+    
+    entries = []
+    errors = []
+    for p in paths:
+        try:
+            entry = build_entry(p)
+            entries.append(entry)
+        except Exception as e:
+            errors.append((p.name, str(e)))
+            print(f"Error processing {p.name}: {e}", file=sys.stderr)
+    
+    if errors:
+        print(f"Failed to process {len(errors)} files", file=sys.stderr)
+    
     pinned = [e for e in entries if e["pinned"]]
     unpinned = [e for e in entries if not e["pinned"]]
     pinned.sort(key=lambda e: e["date"], reverse=True)

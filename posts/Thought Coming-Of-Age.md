@@ -1,3 +1,18 @@
+<<<<<<< HEAD
+=======
+---
+title: Coming-Of-Age
+date: 2025-03-02
+categories:
+  - 孤岛
+  - 摆渡
+tags:
+  - Thoughts
+pinned: true
+excerpt: To my year 18.
+---
+
+>>>>>>> origin/main
 “非要落笔皆是高潮？
 
   我既不是一首诗

@@ -1,0 +1,107 @@
+# 扫描 _comments/ 中的留言，筛选 approved: true 生成精选展示
+name: Sync featured comments
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "_comments/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-comments:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Scan and generate featured comments
+        run: |
+          python3 << 'EOF'
+          import os
+          import re
+          import json
+          from datetime import datetime
+
+          comments_dir = "_comments"
+          featured = []
+
+          if not os.path.exists(comments_dir):
+              print("No _comments directory found")
+              exit(0)
+
+          for filename in sorted(os.listdir(comments_dir)):
+              if not filename.endswith(".md"):
+                  continue
+              
+              filepath = os.path.join(comments_dir, filename)
+              with open(filepath, "r", encoding="utf-8") as f:
+                  content = f.read()
+
+              # 解析 frontmatter（兼容 \r\n 和 \n）
+              match = re.match(r'^---\r?\n(.*?)\r?\n---\r?\n(.*)$', content, re.DOTALL)
+              if not match:
+                  print(f"Skip (no frontmatter): {filename}")
+                  continue
+
+              frontmatter_text = match.group(1)
+              message = match.group(2).strip()
+
+              # 提取 approved 字段
+              approved = False
+              for line in frontmatter_text.split("\n"):
+                  if line.strip().startswith("approved:"):
+                      approved = line.split(":", 1)[1].strip().lower() == "true"
+                      break
+
+              if not approved:
+                  print(f"Skip (not approved): {filename}")
+                  continue
+
+              # 提取其他元数据
+              name = "匿名"
+              date = ""
+
+              for line in frontmatter_text.split("\n"):
+                  if line.strip().startswith("name:"):
+                      name = line.split(":", 1)[1].strip()
+                  elif line.strip().startswith("date:"):
+                      raw_date = line.split(":", 1)[1].strip()
+                      try:
+                          dt = datetime.fromisoformat(raw_date.replace("Z", "+00:00"))
+                          date = dt.strftime("%Y-%m-%d")
+                      except:
+                          date = raw_date[:10]
+
+              featured.append({
+                  "author": name,
+                  "message": message,
+                  "date": date
+              })
+              print(f"Featured: {filename} - {name}")
+
+          # 确保 data 目录存在
+          os.makedirs("data", exist_ok=True)
+
+          # 写入 featured-comments.json
+          output = json.dumps(featured, ensure_ascii=False, indent=2)
+          with open("data/featured-comments.json", "w", encoding="utf-8") as f:
+              f.write(output + "\n")
+
+          print(f"Generated featured-comments.json with {len(featured)} comments")
+          EOF
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/featured-comments.json
+          if git diff --cached --quiet; then
+            echo "No changes to featured-comments.json"
+            exit 0
+          fi
+          git commit -m "chore: sync featured comments from _comments/"
+          git push
