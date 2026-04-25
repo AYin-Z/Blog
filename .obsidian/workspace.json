@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "posts/markdown-tips.md",
+                "file": "posts/231231_烟火起，照人间，举杯敬此年。.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "markdown-tips"
+              "title": "231231_烟火起，照人间，举杯敬此年。"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "posts/markdown-tips.md",
+                "file": "posts/231231_烟火起，照人间，举杯敬此年。.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "markdown-tips 的反向链接列表"
+              "title": "231231_烟火起，照人间，举杯敬此年。 的反向链接列表"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "posts/markdown-tips.md",
+                "file": "posts/231231_烟火起，照人间，举杯敬此年。.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "markdown-tips 的出链列表"
+              "title": "231231_烟火起，照人间，举杯敬此年。 的出链列表"
             }
           },
           {
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "posts/markdown-tips.md",
+                "file": "posts/231231_烟火起，照人间，举杯敬此年。.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "markdown-tips 的大纲"
+              "title": "231231_烟火起，照人间，举杯敬此年。 的大纲"
             }
           }
         ]
@@ -174,6 +174,11 @@
   },
   "active": "a8502eb024b045ad",
   "lastOpenFiles": [
+    "posts/240211_年.md",
+    "posts/240126_尖塔.md",
+    "posts/231231_烟火起，照人间，举杯敬此年。.md",
+    "posts/welcome/demo.svg",
+    "posts/markdown-tips.md",
     "posts/tech-stack.md",
     "_trash/favicon_6.svg",
     "_trash/Screenshot_2026-04-24-18-10-32-394_md.obsidian_26.jpg",
@@ -185,7 +190,6 @@
     "resource/about/alipay.jpg",
     "resource/about",
     "assets/6d6de75bead0608817f20299b2e5e477.jpg",
-    "assets/4a6bb0af5d489e4cd440257aef00e3b5.jpg",
     "posts/大标题测试.md",
     "posts/Thought 17Y.md",
     "posts/Thought 19Y.md",
@@ -211,9 +215,6 @@
     "posts/240813_我写我.md",
     "posts/240810_星.md",
     "posts/240301_《借我》.md",
-    "posts/240211_年.md",
-    "posts/240126_尖塔.md",
-    "posts/231231_烟火起，照人间，举杯敬此年。.md",
     "AGENTS.md"
   ]
 }
