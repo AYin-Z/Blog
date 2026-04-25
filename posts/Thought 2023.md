@@ -7,7 +7,7 @@ categories:
 tags:
   - Thoughts
 pinned: false
-excerpt: To remind 2023.
+excerpt: To remind me of 2023.
 ---
 
 ## 2024-1-26
