@@ -92,6 +92,27 @@
     });
   }
 
+  function initGiscus(slug) {
+    var container = document.getElementById("giscus-post");
+    if (!container) return;
+    var script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.setAttribute("data-repo", "AYin-Z/Blog");
+    script.setAttribute("data-repo-id", "R_kgDOSLNHIQ");
+    script.setAttribute("data-category", "General");
+    script.setAttribute("data-category-id", "DIC_kwDOSLNHIc4C7mTD");
+    script.setAttribute("data-mapping", "pathname");
+    script.setAttribute("data-strict", "0");
+    script.setAttribute("data-reactions-enabled", "1");
+    script.setAttribute("data-emit-metadata", "0");
+    script.setAttribute("data-input-position", "top");
+    script.setAttribute("data-theme", "preferred_color_scheme");
+    script.setAttribute("data-lang", "zh-CN");
+    script.setAttribute("crossorigin", "anonymous");
+    script.async = true;
+    container.appendChild(script);
+  }
+
   async function run() {
     try {
       var posts = await loadPosts();
@@ -145,6 +166,7 @@
       bodyEl.innerHTML = marked.parse(mathProtected.text, { gfm: true, breaks: true });
       bodyEl.innerHTML = restoreMath(bodyEl.innerHTML, mathProtected.blocks);
       renderMath();
+      initGiscus(slug);
     } catch (e) {
       errEl.hidden = false;
       errEl.classList.add("msg--error");

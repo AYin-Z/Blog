@@ -1,16 +1,16 @@
 ---
-title: Thought Coming-Of-Age
+title: Coming-Of-Age
 date: 2025-03-02
 categories:
+  - 孤岛
   - 摆渡
-  - 圆舞
 tags:
   - Thoughts
 pinned: true
 excerpt: To my year 18.
 ---
 
-“非要落笔皆是高潮？
+"非要落笔皆是高潮？
 
   我既不是一首诗
 
@@ -22,22 +22,22 @@ excerpt: To my year 18.
 
   可以反复错
 
-                         /顾桥生”
+                         /顾桥生"
 
   
+
 
 ---
 
   
   
-
 3...2...1...
 
 现在是北京时间2025年3月2日00:00
 
 这是他与世界相识的第6575天
 
-距离 高考 97天
+距离 高考 97天
 
   
 
@@ -47,7 +47,7 @@ excerpt: To my year 18.
 
 但从这一刻起
 
-他 成年了
+他 成年了
 
 .
 
@@ -81,7 +81,7 @@ excerpt: To my year 18.
 
 .
 
-这意味着他 长大 了吗？
+这意味着他 长大 了吗？
 
   
 
@@ -151,7 +151,7 @@ excerpt: To my year 18.
 
 自己的脚步编织起的
 
-迷宫的中心之地 
+迷宫的中心之地 
 
   
 
@@ -265,28 +265,26 @@ excerpt: To my year 18.
 
 ——
 
-Stay Hungry, Stay Foolish
+Stay Hungry, Stay Foolish
 
-And Stay Young.
+And Stay Young.
 
 ——
 
-2025.3.2 00:00
+2025.3.2 00:00
 
 ---
 
   
 
-“--我与我周旋久，宁做我。
+"--我与我周旋久，宁做我。
 
   谨以此，纪念我的童年与少年
 
        那是一段小有遗憾的幸福时光。
 
-                                            / Ayin. ”
+                                            / Ayin. "
 
   
 
 ---
-
-  
