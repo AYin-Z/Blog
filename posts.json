@@ -69,6 +69,52 @@
     "pinned": false
   },
   {
+    "slug": "260410",
+    "title": "一个人",
+    "date": "2026-04-10",
+    "excerpt": "时间是够你爱。",
+    "category": "圆舞",
+    "tags": [
+      "摘抄"
+    ],
+    "pinned": false
+  },
+  {
+    "slug": "260325_log",
+    "title": "Log/260325",
+    "date": "2026-03-25",
+    "excerpt": "是很伤心的一天。",
+    "category": "孤岛",
+    "tags": [
+      "Log",
+      "机器视觉"
+    ],
+    "pinned": false
+  },
+  {
+    "slug": "260302_我站在人潮中央",
+    "title": "我站在人潮中央",
+    "date": "2026-03-02",
+    "excerpt": "蛋糕。",
+    "category": "荒原",
+    "tags": [
+      "摘抄"
+    ],
+    "pinned": false
+  },
+  {
+    "slug": "260101_memo",
+    "title": "跨年",
+    "date": "2026-01-01",
+    "excerpt": "希望梦里有薯条",
+    "category": "孤岛",
+    "tags": [
+      "Memo",
+      "深夜巷话"
+    ],
+    "pinned": false
+  },
+  {
     "slug": "250518_飞光，飞光",
     "title": "飞光，飞光",
     "date": "2025-05-18",
@@ -87,6 +133,17 @@
     "category": "摆渡",
     "tags": [
       "摘抄"
+    ],
+    "pinned": false
+  },
+  {
+    "slug": "250530_离校",
+    "title": "离校",
+    "date": "2025-03-30",
+    "excerpt": "最后一次，夜色里踏上归途",
+    "category": "荒原",
+    "tags": [
+      "Memo"
     ],
     "pinned": false
   },
@@ -176,7 +233,8 @@
     "excerpt": "敬事如仪。",
     "category": "荒原",
     "tags": [
-      "review"
+      "review",
+      "摘抄"
     ],
     "pinned": false
   }

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-Scan posts/*.md for embedded resources, find them in root directory,
-move images to resource/{slug}/ folder, and convert post links.
+Scan posts/*.md for embedded resources, find them in root directory
+and posts/{slug}/ subdirectories, move images to resource/{slug}/,
+and convert post links.
 """
 import os
 import re
@@ -56,13 +57,27 @@ def get_all_root_files() -> dict:
             files[f.name.lower()] = f
     return files
 
-def slugify(title: str) -> str:
-    """Convert title to URL-safe slug."""
-    # Remove file extension
-    title = re.sub(r'\.md$', '', title)
-    return title
+def get_all_post_subdir_files() -> dict:
+    """Get all attachment files in posts/{slug}/ subdirectories."""
+    files = {}
+    if not POSTS_DIR.exists():
+        return files
+    for subdir in POSTS_DIR.iterdir():
+        if subdir.is_dir():
+            for f in subdir.iterdir():
+                if f.is_file() and f.suffix.lower() in ALL_EXTS:
+                    files[f.name.lower()] = f
+    return files
 
-def process_post(post_file: Path, root_files: dict) -> bool:
+def find_file(filename_lower: str, root_files: dict, subdir_files: dict) -> Path | None:
+    """Find a file by its lowercase name in root or posts subdirectories."""
+    if filename_lower in root_files:
+        return root_files[filename_lower]
+    if filename_lower in subdir_files:
+        return subdir_files[filename_lower]
+    return None
+
+def process_post(post_file: Path, root_files: dict, subdir_files: dict) -> bool:
     """
     Process a single post: find resources, move images, convert post links.
     Returns True if any changes were made.
@@ -80,11 +95,11 @@ def process_post(post_file: Path, root_files: dict) -> bool:
         filename_lower = filename.lower()
         
         if is_img:
-            # Handle image: move to resource folder
-            if filename_lower not in root_files:
+            # Handle image: find and move to resource folder
+            source_file = find_file(filename_lower, root_files, subdir_files)
+            if source_file is None:
                 continue
             
-            source_file = root_files[filename_lower]
             new_path = resource_post_dir / filename
             
             # Copy file to resource folder
@@ -97,15 +112,15 @@ def process_post(post_file: Path, root_files: dict) -> bool:
             print(f"  [IMAGE] {filename} -> resource/{slug}/")
         else:
             # Handle post reference: convert to link
-            post_slug = slugify(filename)
-            # Convert ![[xxx|alias]] or [[xxx|alias]] to link
+            post_slug = filename.replace('.md', '')
+            # Convert ![[xxx|alias]] to link
             content = re.sub(
-                r'!?\[\[([^\]|]+)\|([^\]]+)\]\]',
+                r'!\[\[([^\]|]+)\|([^\]]+)\]\]',
                 f'<a href="post.html?slug={post_slug}">\\2</a>',
                 content,
                 count=1
             )
-            # Also handle ![[xxx]]
+            # Convert ![[xxx]] to link
             content = re.sub(
                 r'!\[\[([^\]|]+)\]\]',
                 f'<a href="post.html?slug={post_slug}">\\1</a>',
@@ -120,18 +135,36 @@ def process_post(post_file: Path, root_files: dict) -> bool:
     
     return changes_made
 
+def cleanup_empty_dirs():
+    """Remove empty subdirectories in posts/."""
+    if not POSTS_DIR.exists():
+        return
+    for subdir in list(POSTS_DIR.iterdir()):
+        if subdir.is_dir():
+            # Only remove if all files are images/attachments (not .md)
+            has_md = any(f.suffix == '.md' for f in subdir.iterdir())
+            if not has_md and not any(f for f in subdir.iterdir()):
+                subdir.rmdir()
+                print(f"  Removed empty dir: posts/{subdir.name}/")
+
 def main():
     print("Scanning posts for embedded resources...")
     
     root_files = get_all_root_files()
-    print(f"Found {len(root_files)} attachment files in root directory.")
+    subdir_files = get_all_post_subdir_files()
+    print(f"Found {len(root_files)} files in root directory")
+    print(f"Found {len(subdir_files)} files in posts/ subdirectories")
     
     changes_made = False
     
     for post_file in sorted(POSTS_DIR.glob("*.md")):
-        if process_post(post_file, root_files):
+        if process_post(post_file, root_files, subdir_files):
             changes_made = True
             print(f"Updated: {post_file.name}")
+    
+    # Clean up empty directories
+    if changes_made:
+        cleanup_empty_dirs()
     
     if changes_made:
         print("\nResource organization complete!")

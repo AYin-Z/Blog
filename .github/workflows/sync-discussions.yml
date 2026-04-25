@@ -2,8 +2,6 @@
 name: Sync Discussions to Comments
 
 on:
-  discussion:
-    types: [created, edited, deleted]
   schedule:
     - cron: "0 */6 * * *"  # 每6小时同步一次
   workflow_dispatch:
@@ -19,7 +17,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Sync discussions to _comments/
-        id: sync
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python3 << 'EOF'
           import os
@@ -27,42 +26,63 @@ jobs:
           import json
           import subprocess
           from datetime import datetime
+          from pathlib import Path
 
           # 使用 gh CLI 获取 discussions
-          result = subprocess.run(
-              ["gh", "api", "repos/AYin-Z/Blog/discussions", "--jq", ".[] | {number: .number, title: .title, body: .body, createdAt: .createdAt, author: .author.login}"],
-              capture_output=True, text=True
-          )
-
-          if result.returncode != 0:
-              print("Failed to fetch discussions")
-              print(result.stderr)
-              exit(0)
-
+          page = 1
           discussions = []
-          for line in result.stdout.strip().split('\n'):
-              if line:
-                  discussions.append(json.loads(line))
+
+          while True:
+              result = subprocess.run(
+                  ["gh", "api", f"repos/AYin-Z/Blog/discussions?per_page=100&page={page}"],
+                  capture_output=True, text=True
+              )
+
+              if result.returncode != 0:
+                  print(f"Failed to fetch discussions: {result.stderr}")
+                  break
+
+              batch = json.loads(result.stdout) if result.stdout.strip() else []
+              if not batch:
+                  break
+
+              discussions.extend(batch)
+              page += 1
 
           print(f"Found {len(discussions)} discussions")
 
+          if not discussions:
+              print("No discussions found, skipping.")
+              exit(0)
+
           # 确保 _comments 目录存在
           os.makedirs("_comments", exist_ok=True)
+
+          # 获取已有的评论文件
+          existing = set()
+          comments_dir = Path("_comments")
+          if comments_dir.exists():
+              for f in comments_dir.glob("*.md"):
+                  existing.add(f.name)
+
+          new_files = []
 
           for d in discussions:
               number = d.get("number", "")
               title = d.get("title", "")
               body = d.get("body", "").strip()
               created = d.get("createdAt", "")
-              author = d.get("author", "anonymous")
+              author_dict = d.get("author") or {}
+              author = author_dict.get("login", "anonymous") if isinstance(author_dict, dict) else "anonymous"
 
               if not body:
                   continue
 
               # 生成文件名
               date_str = created[:10] if created else datetime.now().strftime("%Y-%m-%d")
-              safe_title = re.sub(r'[^\w\-]', '-', title)[:50]
-              filename = f"_comments/{date_str}-discussion-{number}.md"
+              safe_title = re.sub(r'[^\w\-]', '-', title)[:30]
+              filename = f"{date_str}-discussion-{number}.md"
+              filepath = f"_comments/{filename}"
 
               # 生成 markdown 内容
               content = f"""---
@@ -74,12 +94,15 @@ approved: false
 {body}
 """
 
-              with open(filename, "w", encoding="utf-8") as f:
+              with open(filepath, "w", encoding="utf-8") as f:
                   f.write(content)
+
+              if filename not in existing:
+                  new_files.append(filename)
 
               print(f"Synced: {filename}")
 
-          print("Sync complete")
+          print(f"Total: {len(discussions)} discussions, {len(new_files)} new files")
           EOF
 
       - name: Commit changes

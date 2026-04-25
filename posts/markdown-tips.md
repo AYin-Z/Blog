@@ -59,7 +59,7 @@ function hello() {
 
 图片路径建议从**站点根目录**写起，例如本站仓库根下的 `posts/welcome/demo.svg`：
 
-![](posts/welcome/demo.svg)
+![](resource/markdown-tips/demo.svg)
 
 外链图片与普通 Markdown 相同：`![](https://example.com/a.png)`。
 
