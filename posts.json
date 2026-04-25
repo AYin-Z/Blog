@@ -45,6 +45,18 @@
     "pinned": true
   },
   {
+    "slug": "tech-stack",
+    "title": "技术实现",
+    "date": "2026-04-25",
+    "excerpt": "本博客的完整技术架构、自动化工作流与部署路径。",
+    "category": "荒原",
+    "tags": [
+      "博客",
+      "技术栈"
+    ],
+    "pinned": false
+  },
+  {
     "slug": "大标题测试",
     "title": "测试",
     "date": "2026-04-24",
@@ -96,7 +108,7 @@
     "title": "我站在人潮中央",
     "date": "2026-03-02",
     "excerpt": "蛋糕。",
-    "category": "荒原",
+    "category": "孤岛",
     "tags": [
       "摘抄"
     ],
@@ -119,7 +131,7 @@
     "title": "飞光，飞光",
     "date": "2025-05-18",
     "excerpt": "思 · 苦昼短",
-    "category": "荒原",
+    "category": "孤岛",
     "tags": [
       "Memo"
     ],
@@ -130,7 +142,7 @@
     "title": "雨",
     "date": "2025-04-01",
     "excerpt": "求人不如求己。",
-    "category": "摆渡",
+    "category": "圆舞",
     "tags": [
       "摘抄"
     ],
@@ -141,7 +153,7 @@
     "title": "离校",
     "date": "2025-03-30",
     "excerpt": "最后一次，夜色里踏上归途",
-    "category": "荒原",
+    "category": "孤岛",
     "tags": [
       "Memo"
     ],
@@ -219,7 +231,7 @@
     "slug": "Thought 2023",
     "title": "Thought 2023",
     "date": "2024-01-26",
-    "excerpt": "To remind 2023.",
+    "excerpt": "To remind me of 2023.",
     "category": "孤岛",
     "tags": [
       "Thoughts"
@@ -231,7 +243,7 @@
     "title": "烟火起，照人间，举杯敬此年",
     "date": "2023-12-31",
     "excerpt": "敬事如仪。",
-    "category": "荒原",
+    "category": "摆渡",
     "tags": [
       "review",
       "摘抄"

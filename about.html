@@ -78,32 +78,12 @@
         </div>
 
         <h2>技术细节</h2>
-        <details>
-          <summary>展开查看博客的技术实现</summary>
-          <p>
-            纯静态站点，HTML / CSS / JS 直出。文章存放于 <code>posts/*.md</code>，推送后由 GitHub Actions
-            自动解析 YAML 头生成 <code>posts.json</code> 索引。评论系统使用 Giscus（基于 GitHub Discussions），
-            数学公式使用 KaTeX 渲染，访客统计使用不蒜子。
-          </p>
-          <p>
-            文章 YAML 示例：
-          </p>
-          <pre><code>---
-title: 我的第一篇博客
-date: 2026-04-24
-categories:
-  - 孤岛
-tags:
-  - 随笔
-pinned: false
-excerpt: 摘要
----</code></pre>
-          <p>
-            分类择一：<strong>孤岛、荒原、摆渡、圆舞</strong>。未填默认「孤岛」。
-            支持行内 <code>$...$</code> 与块级 <code>$$...$$</code> 数学公式。
-            Obsidian <code>![[图片]]</code> 语法会自动转换为标准 Markdown。
-          </p>
-        </details>
+        <p>
+          如果你对博客的技术实现感兴趣，这里有完整的技术栈、自动化工作流与部署路径介绍：
+        </p>
+        <p>
+          <a href="post.html?slug=tech-stack">查看技术实现详解 →</a>
+        </p>
       </article>
     </main>
 
