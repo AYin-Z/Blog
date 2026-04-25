@@ -310,16 +310,40 @@ main {
   margin-right: 0.25rem;
 }
 
-.article-views {
+.article-stats {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 1rem;
   margin-top: 0.5rem;
   font-size: 0.85rem;
   color: var(--text-muted);
 }
+
+.article-views {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
 .article-views svg {
   opacity: 0.6;
+}
+
+.article-reactions-hint {
+  opacity: 0.55;
+  font-size: 0.8rem;
+}
+
+.article-reactions {
+  max-width: var(--max-width);
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.reactions-title {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--text-muted);
 }
 
 .article-body {
@@ -797,6 +821,35 @@ a.tag-pill--link:hover {
 
 .about-prose h2:first-child {
   margin-top: 0;
+}
+
+.about-signature {
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.about-prose details {
+  margin-top: 0.5rem;
+}
+
+.about-prose details summary {
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding: 0.5rem 0;
+  user-select: none;
+}
+
+.about-prose details summary:hover {
+  color: var(--accent);
+}
+
+.about-prose details[open] summary {
+  margin-bottom: 1rem;
 }
 
 .about-prose .about-code {
