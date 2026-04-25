@@ -1,12 +1,9 @@
 ---
-title: 测试
+title:
 date:
 categories:
-  - 荒原
 tags:
-  - Markdown
-  - 博客
-pinned: true
-excerpt: 测试obsidian移动端同步
+pinned: false
+excerpt:
 ---
 
