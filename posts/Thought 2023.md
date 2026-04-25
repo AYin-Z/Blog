@@ -3,6 +3,7 @@ title: Thought 2023
 date: 2024-01-26
 categories:
   - 孤岛
+  - 摆渡
 tags:
   - Thoughts
 pinned: false
