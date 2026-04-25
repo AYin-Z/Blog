@@ -310,6 +310,18 @@ main {
   margin-right: 0.25rem;
 }
 
+.article-views {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.article-views svg {
+  opacity: 0.6;
+}
+
 .article-body {
   max-width: var(--max-width);
 }
