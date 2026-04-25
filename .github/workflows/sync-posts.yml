@@ -20,13 +20,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            posts/
+            scripts/
+            posts.json
+          sparse-checkout-cone-mode: false
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: 'pip'
+          cache-dependency-path: scripts/build_posts_index.py
 
-      - name: Install PyYAML
-        run: pip install pyyaml
+      - name: Install dependencies
+        run: pip install --no-cache-dir pyyaml
 
       - name: Organize resources
         run: python scripts/organize_resources.py
