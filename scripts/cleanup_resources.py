@@ -15,6 +15,9 @@ RESOURCE_DIR = ROOT / "resource"
 # All supported extensions
 ALL_EXTS = {'.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.bmp', '.pdf', '.zip', '.mp3', '.mp4', '.mov', '.avi'}
 
+# Root-level files that are site assets (not blog-post attachments) and must never be trashed
+PROTECTED_ROOT_FILES = {'favicon.svg', 'favicon.png', 'favicon.ico'}
+
 def get_all_referenced_filenames() -> set:
     """Get all resource filenames referenced in posts."""
     referenced = set()
@@ -25,7 +28,10 @@ def get_all_referenced_filenames() -> set:
         # Markdown images: ![alt](path)
         for match in re.finditer(r'!\[([^\]]*)\]\(([^)]+)\)', content):
             link = match.group(2)
-            if not link.startswith(('http://', 'https://', '/', 'data:')):
+            # Skip links that are already under resource/ — their originals in root
+            # should be cleaned up, not kept. Only bare-filename or posts/-relative
+            # paths mean the file still lives in root/posts subdirs.
+            if not link.startswith(('http://', 'https://', '/', 'data:', 'resource/')):
                 referenced.add(os.path.basename(link).lower())
         
         # Obsidian embeds: ![[path]]
@@ -43,12 +49,12 @@ def get_all_referenced_filenames() -> set:
     return referenced
 
 def scan_directory(directory: Path) -> dict:
-    """Get all supported files in a directory."""
+    """Get all supported files in a directory, excluding protected site assets."""
     files = {}
     if not directory.exists():
         return files
     for f in directory.iterdir():
-        if f.is_file() and f.suffix.lower() in ALL_EXTS:
+        if f.is_file() and f.suffix.lower() in ALL_EXTS and f.name.lower() not in PROTECTED_ROOT_FILES:
             files[f.name.lower()] = f
     return files
 

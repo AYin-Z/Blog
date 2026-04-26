@@ -39,8 +39,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
           if [ -d "_trash" ]; then
-            git add _trash/
+            git add -A _trash/
           fi
+          git add -u
           
           if git diff --cached --quiet; then
             echo "No changes"

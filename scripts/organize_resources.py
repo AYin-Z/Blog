@@ -77,10 +77,11 @@ def find_file(filename_lower: str, root_files: dict, subdir_files: dict) -> Path
         return subdir_files[filename_lower]
     return None
 
-def process_post(post_file: Path, root_files: dict, subdir_files: dict) -> bool:
+def process_post(post_file: Path, root_files: dict, subdir_files: dict, moved_sources: set) -> bool:
     """
     Process a single post: find resources, move images, convert post links.
     Returns True if any changes were made.
+    moved_sources: set of source Path objects that have been moved (shared across all posts).
     """
     slug = post_file.stem
     content = post_file.read_text(encoding='utf-8')
@@ -102,8 +103,9 @@ def process_post(post_file: Path, root_files: dict, subdir_files: dict) -> bool:
             
             new_path = resource_post_dir / filename
             
-            # Copy file to resource folder
+            # Copy file to resource folder, then schedule source for deletion
             shutil.copy2(source_file, new_path)
+            moved_sources.add(source_file)
             
             # Update link to resource path
             new_link = f"resource/{slug}/{filename}"
@@ -147,6 +149,25 @@ def cleanup_empty_dirs():
                 subdir.rmdir()
                 print(f"  Removed empty dir: posts/{subdir.name}/")
 
+def cleanup_orphaned_subdir_files():
+    """
+    Remove attachment files from posts/{slug}/ subdirectories that have already
+    been organized into resource/{slug}/.  These are leftovers from a previous
+    run that used shutil.copy2 instead of deleting the original.
+    """
+    if not POSTS_DIR.exists():
+        return
+    for subdir in POSTS_DIR.iterdir():
+        if not subdir.is_dir():
+            continue
+        slug = subdir.name
+        for f in list(subdir.iterdir()):
+            if f.is_file() and f.suffix.lower() in ALL_EXTS:
+                resource_copy = RESOURCE_DIR / slug / f.name
+                if resource_copy.exists():
+                    f.unlink()
+                    print(f"  Removed orphaned subdir file: posts/{slug}/{f.name}")
+
 def main():
     print("Scanning posts for embedded resources...")
     
@@ -156,16 +177,25 @@ def main():
     print(f"Found {len(subdir_files)} files in posts/ subdirectories")
     
     changes_made = False
+    moved_sources: set = set()
     
     for post_file in sorted(POSTS_DIR.glob("*.md")):
-        if process_post(post_file, root_files, subdir_files):
+        if process_post(post_file, root_files, subdir_files, moved_sources):
             changes_made = True
             print(f"Updated: {post_file.name}")
     
-    # Clean up empty directories
-    if changes_made:
-        cleanup_empty_dirs()
+    # Delete original source files that were copied to resource/
+    for src in moved_sources:
+        if src.exists():
+            src.unlink()
+            print(f"  Deleted source: {src}")
     
+    # Clean up leftover attachment files in posts/ subdirectories
+    cleanup_orphaned_subdir_files()
+
+    # Clean up empty directories
+    cleanup_empty_dirs()
+
     if changes_made:
         print("\nResource organization complete!")
     else:
