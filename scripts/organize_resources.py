@@ -103,7 +103,11 @@ def process_post(post_file: Path, root_files: dict, subdir_files: dict, moved_so
             
             new_path = resource_post_dir / filename
             
-            # Copy file to resource folder, then schedule source for deletion
+            # Copy file to resource folder, then schedule source for deletion.
+            # copy2 + deferred deletion (rather than shutil.move) is intentional:
+            # the same source filename can be referenced by multiple posts, each
+            # needing its own independent copy in resource/{slug}/.  We collect all
+            # sources and remove them after the entire loop completes.
             shutil.copy2(source_file, new_path)
             moved_sources.add(source_file)
             

@@ -16,7 +16,7 @@ RESOURCE_DIR = ROOT / "resource"
 ALL_EXTS = {'.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.bmp', '.pdf', '.zip', '.mp3', '.mp4', '.mov', '.avi'}
 
 # Root-level files that are site assets (not blog-post attachments) and must never be trashed
-PROTECTED_ROOT_FILES = {'favicon.svg', 'favicon.png', 'favicon.ico'}
+PROTECTED_ROOT_FILES = {'favicon.svg', 'favicon.png', 'favicon.ico'}  # lowercase; matched case-insensitively
 
 def get_all_referenced_filenames() -> set:
     """Get all resource filenames referenced in posts."""
