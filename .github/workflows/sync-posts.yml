@@ -47,6 +47,5 @@ jobs:
             exit 0
           fi
           git commit -m "chore: sync posts and organize resources"
-          # 先拉取远端最新变更再推送，避免覆盖用户的提交
-          git pull --rebase origin main || git rebase --abort && exit 0
+          git pull --rebase origin main
           git push origin main

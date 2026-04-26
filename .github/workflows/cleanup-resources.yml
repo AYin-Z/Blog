@@ -48,5 +48,5 @@ jobs:
           fi
           
           git commit -m "chore: move unreferenced resources to _trash/"
-          git pull --rebase origin main || git rebase --abort && exit 0
+          git pull --rebase origin main
           git push origin main
