@@ -208,8 +208,8 @@ fetch posts/xxx.md → 获取 Markdown 原文
     ↓
 stripYamlFrontmatter() → 去掉 YAML 头
     ↓
-convertObsidianEmbeds() → ![[图片]] → ![](路径)
-                         → ![[文章]] → <a href="post.html?slug=...">
+convertObsidianEmbeds() → <a href="post.html?slug=路径">图片</a> → ![](路径)
+                         → <a href="post.html?slug=图片">文章</a> → <a href="post.html?slug=...">
     ↓
 protectMath() → 保护 $...$ 和 $$...$$ 不被转义
     ↓
