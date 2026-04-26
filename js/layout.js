@@ -67,7 +67,7 @@
       "</div>" +
       '<p class="footer-note">' +
       escapeHtml(cfg.footerNote) +
-      ' | <span id="busuanzi_container_site_uv">本站访客 <span id="busuanzi_value_site_uv"></span> 人</span>' +
+      ' | <span id="busuanzi_container_site_uv" style="display:none">本站访客 <span id="busuanzi_value_site_uv"></span> 人</span>' +
       "</p>";
   }
 
