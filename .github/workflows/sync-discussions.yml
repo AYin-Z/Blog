@@ -6,6 +6,10 @@ on:
     - cron: "0 */6 * * *"  # 每6小时同步一次
   workflow_dispatch:
 
+concurrency:
+  group: blog-discussion-sync
+  cancel-in-progress: false
+
 permissions:
   contents: write
   discussions: read
@@ -80,15 +84,22 @@ jobs:
 
               # 生成文件名
               date_str = created[:10] if created else datetime.now().strftime("%Y-%m-%d")
-              safe_title = re.sub(r'[^\w\-]', '-', title)[:30]
               filename = f"{date_str}-discussion-{number}.md"
               filepath = f"_comments/{filename}"
 
-              # 生成 markdown 内容
+              # 保留已有文件中由人工设置的 approved 字段，避免每次同步重置
+              approved = "false"
+              if filename in existing:
+                  existing_text = Path(filepath).read_text(encoding="utf-8")
+                  m = re.search(r'^approved:\s*(.+)$', existing_text, re.MULTILINE)
+                  if m:
+                      approved = m.group(1).strip()
+
+              # 生成 markdown 内容（更新正文，但保持 approved 不变）
               content = f"""---
 name: {author}
 date: {created}
-approved: false
+approved: {approved}
 ---
 
 {body}
@@ -115,4 +126,5 @@ approved: false
             exit 0
           fi
           git commit -m "chore: sync discussions to _comments/"
+          git pull --rebase origin main
           git push

@@ -12,6 +12,10 @@ on:
       - "scripts/organize_resources.py"
       - ".github/workflows/sync-posts.yml"
 
+concurrency:
+  group: blog-post-sync
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -41,7 +45,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A posts.json posts/ resource/
+          git add -A
           if git diff --cached --quiet; then
             echo "No changes"
             exit 0

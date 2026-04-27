@@ -66,7 +66,16 @@ def get_all_post_subdir_files() -> dict:
         if subdir.is_dir():
             for f in subdir.iterdir():
                 if f.is_file() and f.suffix.lower() in ALL_EXTS:
-                    files[f.name.lower()] = f
+                    key = f.name.lower()
+                    if key in files:
+                        print(
+                            f"  warn: duplicate attachment name '{f.name}' found in "
+                            f"posts/{subdir.name}/ and posts/{files[key].parent.name}/; "
+                            f"using the first one found — rename one to avoid misassignment",
+                            file=__import__('sys').stderr,
+                        )
+                    else:
+                        files[key] = f
     return files
 
 def find_file(filename_lower: str, root_files: dict, subdir_files: dict) -> Path | None:
@@ -113,7 +122,7 @@ def process_post(post_file: Path, root_files: dict, subdir_files: dict, moved_so
             
             # Update link to resource path
             new_link = f"resource/{slug}/{filename}"
-            content = content.replace(full_match, f"![]({new_link})", 1)
+            content = content.replace(full_match, f"![]({new_link})")
             changes_made = True
             print(f"  [IMAGE] {filename} -> resource/{slug}/")
         else:

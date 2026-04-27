@@ -9,6 +9,10 @@ on:
       - "_comments/**"
   workflow_dispatch:
 
+concurrency:
+  group: blog-comment-sync
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -104,4 +108,5 @@ jobs:
             exit 0
           fi
           git commit -m "chore: sync featured comments from _comments/"
+          git pull --rebase origin main
           git push

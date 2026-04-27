@@ -29,7 +29,7 @@ def split_front_matter(text: str) -> tuple[dict, str]:
         meta = yaml.safe_load(raw) or {}
     except yaml.YAMLError as e:
         print(f"YAML error: {e}", file=sys.stderr)
-        sys.exit(1)
+        raise
     if not isinstance(meta, dict):
         meta = {}
     return meta, body
@@ -147,7 +147,10 @@ def main() -> None:
             print(f"Error processing {p.name}: {e}", file=sys.stderr)
     
     if errors:
-        print(f"Failed to process {len(errors)} files", file=sys.stderr)
+        print(f"\nWARN: Failed to process {len(errors)} file(s):", file=sys.stderr)
+        for fname, err in errors:
+            print(f"  {fname}: {err}", file=sys.stderr)
+        print("These files are excluded from posts.json.", file=sys.stderr)
     
     pinned = [e for e in entries if e["pinned"]]
     unpinned = [e for e in entries if not e["pinned"]]
