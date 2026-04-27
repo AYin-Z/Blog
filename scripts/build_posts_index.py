@@ -12,6 +12,9 @@ from pathlib import Path
 
 import yaml
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from log_utils import Logger
+
 ROOT = Path(__file__).resolve().parent.parent
 POSTS_DIR = ROOT / "posts"
 OUT = ROOT / "posts.json"
@@ -74,10 +77,14 @@ def normalize_tags(meta: dict) -> list[str]:
     return []
 
 
-def normalize_date(meta: dict, slug: str) -> str:
+def normalize_date(meta: dict, slug: str, log: "Logger | None" = None) -> str:
     d = meta.get("date")
     if d is None:
-        print(f"warn: {slug}.md missing date, using 1970-01-01", file=sys.stderr)
+        msg = f"{slug}.md missing 'date' field, defaulting to 1970-01-01"
+        if log:
+            log.warn(msg, context=f"posts/{slug}.md")
+        else:
+            print(f"warn: {msg}", file=sys.stderr)
         return "1970-01-01"
     if hasattr(d, "strftime"):
         return d.strftime("%Y-%m-%d")
@@ -130,39 +137,39 @@ def build_entry(path: Path) -> dict:
 
 
 def main() -> None:
+    log = Logger("build_posts_index")
+
     if not POSTS_DIR.is_dir():
-        print("posts/ not found", file=sys.stderr)
-        sys.exit(1)
+        log.error("posts/ directory not found")
+        sys.exit(log.summary())
+
     paths = sorted(POSTS_DIR.glob("*.md"))
-    print(f"Found {len(paths)} markdown files in posts/")
-    
+    log.info(f"Found {len(paths)} markdown files in posts/")
+
     entries = []
-    errors = []
     for p in paths:
         try:
             entry = build_entry(p)
             entries.append(entry)
         except Exception as e:
-            errors.append((p.name, str(e)))
-            print(f"Error processing {p.name}: {e}", file=sys.stderr)
-    
-    if errors:
-        print(f"\nWARN: Failed to process {len(errors)} file(s):", file=sys.stderr)
-        for fname, err in errors:
-            print(f"  {fname}: {err}", file=sys.stderr)
-        print("These files are excluded from posts.json.", file=sys.stderr)
-    
+            log.error(f"Failed to process {p.name}", context=str(p), exc=e)
+
     pinned = [e for e in entries if e["pinned"]]
     unpinned = [e for e in entries if not e["pinned"]]
     pinned.sort(key=lambda e: e["date"], reverse=True)
     unpinned.sort(key=lambda e: e["date"], reverse=True)
     ordered = pinned + unpinned
 
-    OUT.write_text(
-        json.dumps(ordered, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    print(f"Wrote {len(ordered)} posts to posts.json")
+    try:
+        OUT.write_text(
+            json.dumps(ordered, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        log.info(f"Wrote {len(ordered)} posts to posts.json")
+    except OSError as e:
+        log.error("Failed to write posts.json", context=str(OUT), exc=e)
+
+    sys.exit(log.summary())
 
 
 if __name__ == "__main__":

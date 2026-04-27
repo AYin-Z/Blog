@@ -27,76 +27,93 @@ jobs:
           python3 << 'EOF'
           import os
           import re
+          import sys
           import json
           import subprocess
           from datetime import datetime
           from pathlib import Path
 
-          # 使用 gh CLI 获取 discussions
-          page = 1
-          discussions = []
+          def gha_error(msg):
+              print(f"::error::{msg}", flush=True)
 
-          while True:
-              result = subprocess.run(
-                  ["gh", "api", f"repos/AYin-Z/Blog/discussions?per_page=100&page={page}"],
-                  capture_output=True, text=True
-              )
+          def gha_warn(msg):
+              print(f"::warning::{msg}", flush=True)
 
-              if result.returncode != 0:
-                  print(f"Failed to fetch discussions: {result.stderr}")
-                  break
+          try:
+            # 使用 gh CLI 获取 discussions
+            page = 1
+            discussions = []
 
-              batch = json.loads(result.stdout) if result.stdout.strip() else []
-              if not batch:
-                  break
+            while True:
+                result = subprocess.run(
+                    ["gh", "api", f"repos/AYin-Z/Blog/discussions?per_page=100&page={page}"],
+                    capture_output=True, text=True
+                )
 
-              discussions.extend(batch)
-              page += 1
+                if result.returncode != 0:
+                    gha_error(f"Failed to fetch discussions (page {page}): {result.stderr.strip()}")
+                    sys.exit(1)
 
-          print(f"Found {len(discussions)} discussions")
+                try:
+                    batch = json.loads(result.stdout) if result.stdout.strip() else []
+                except json.JSONDecodeError as e:
+                    gha_error(f"Invalid JSON from GitHub API (page {page}): {e}")
+                    sys.exit(1)
 
-          if not discussions:
-              print("No discussions found, skipping.")
-              exit(0)
+                if not batch:
+                    break
 
-          # 确保 _comments 目录存在
-          os.makedirs("_comments", exist_ok=True)
+                discussions.extend(batch)
+                page += 1
 
-          # 获取已有的评论文件
-          existing = set()
-          comments_dir = Path("_comments")
-          if comments_dir.exists():
-              for f in comments_dir.glob("*.md"):
-                  existing.add(f.name)
+            print(f"Found {len(discussions)} discussions")
 
-          new_files = []
+            if not discussions:
+                print("No discussions found, skipping.")
+                sys.exit(0)
 
-          for d in discussions:
-              number = d.get("number", "")
-              title = d.get("title", "")
-              body = d.get("body", "").strip()
-              created = d.get("createdAt", "")
-              author_dict = d.get("author") or {}
-              author = author_dict.get("login", "anonymous") if isinstance(author_dict, dict) else "anonymous"
+            # 确保 _comments 目录存在
+            os.makedirs("_comments", exist_ok=True)
 
-              if not body:
-                  continue
+            # 获取已有的评论文件
+            existing = set()
+            comments_dir = Path("_comments")
+            if comments_dir.exists():
+                for f in comments_dir.glob("*.md"):
+                    existing.add(f.name)
 
-              # 生成文件名
-              date_str = created[:10] if created else datetime.now().strftime("%Y-%m-%d")
-              filename = f"{date_str}-discussion-{number}.md"
-              filepath = f"_comments/{filename}"
+            new_files = []
+            write_errors = 0
 
-              # 保留已有文件中由人工设置的 approved 字段，避免每次同步重置
-              approved = "false"
-              if filename in existing:
-                  existing_text = Path(filepath).read_text(encoding="utf-8")
-                  m = re.search(r'^approved:\s*(.+)$', existing_text, re.MULTILINE)
-                  if m:
-                      approved = m.group(1).strip()
+            for d in discussions:
+                number = d.get("number", "")
+                title = d.get("title", "")
+                body = d.get("body", "").strip()
+                created = d.get("createdAt", "")
+                author_dict = d.get("author") or {}
+                author = author_dict.get("login", "anonymous") if isinstance(author_dict, dict) else "anonymous"
 
-              # 生成 markdown 内容（更新正文，但保持 approved 不变）
-              content = f"""---
+                if not body:
+                    continue
+
+                # 生成文件名
+                date_str = created[:10] if created else datetime.now().strftime("%Y-%m-%d")
+                filename = f"{date_str}-discussion-{number}.md"
+                filepath = f"_comments/{filename}"
+
+                # 保留已有文件中由人工设置的 approved 字段，避免每次同步重置
+                approved = "false"
+                if filename in existing:
+                    try:
+                        existing_text = Path(filepath).read_text(encoding="utf-8")
+                        m = re.search(r'^approved:\s*(.+)$', existing_text, re.MULTILINE)
+                        if m:
+                            approved = m.group(1).strip()
+                    except Exception as e:
+                        gha_warn(f"Cannot read existing file {filename} to preserve approved field: {e}")
+
+                # 生成 markdown 内容（更新正文，但保持 approved 不变）
+                content = f"""---
 name: {author}
 date: {created}
 approved: {approved}
@@ -105,19 +122,37 @@ approved: {approved}
 {body}
 """
 
-              with open(filepath, "w", encoding="utf-8") as f:
-                  f.write(content)
+                try:
+                    with open(filepath, "w", encoding="utf-8") as f:
+                        f.write(content)
+                except OSError as e:
+                    gha_error(f"Cannot write {filepath}: {e}")
+                    write_errors += 1
+                    continue
 
-              if filename not in existing:
-                  new_files.append(filename)
+                if filename not in existing:
+                    new_files.append(filename)
 
-              print(f"Synced: {filename}")
+                print(f"Synced: {filename}")
 
-          print(f"Total: {len(discussions)} discussions, {len(new_files)} new files")
+            print(f"Total: {len(discussions)} discussions, {len(new_files)} new files")
+
+            if write_errors:
+                gha_error(f"{write_errors} file(s) failed to write — see above.")
+                sys.exit(1)
+
+          except SystemExit:
+              raise
+          except Exception as e:
+              import traceback
+              gha_error(f"Unexpected error in sync-discussions: {e}")
+              traceback.print_exc()
+              sys.exit(1)
           EOF
 
       - name: Commit changes
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add _comments/

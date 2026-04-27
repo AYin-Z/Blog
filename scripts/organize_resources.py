@@ -7,7 +7,11 @@ and convert post links.
 import os
 import re
 import shutil
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from log_utils import Logger
 
 ROOT = Path(__file__).resolve().parent.parent
 POSTS_DIR = ROOT / "posts"
@@ -72,7 +76,7 @@ def get_all_post_subdir_files() -> dict:
                             f"  warn: duplicate attachment name '{f.name}' found in "
                             f"posts/{subdir.name}/ and posts/{files[key].parent.name}/; "
                             f"using the first one found — rename one to avoid misassignment",
-                            file=__import__('sys').stderr,
+                            file=sys.stderr,
                         )
                     else:
                         files[key] = f
@@ -86,45 +90,57 @@ def find_file(filename_lower: str, root_files: dict, subdir_files: dict) -> Path
         return subdir_files[filename_lower]
     return None
 
-def process_post(post_file: Path, root_files: dict, subdir_files: dict, moved_sources: set) -> bool:
+def process_post(post_file: Path, root_files: dict, subdir_files: dict, moved_sources: set, log: Logger) -> bool:
     """
     Process a single post: find resources, move images, convert post links.
     Returns True if any changes were made.
     moved_sources: set of source Path objects that have been moved (shared across all posts).
     """
     slug = post_file.stem
-    content = post_file.read_text(encoding='utf-8')
+    try:
+        content = post_file.read_text(encoding='utf-8')
+    except Exception as e:
+        log.error(f"Cannot read {post_file.name}", context=str(post_file), exc=e)
+        return False
     changes_made = False
-    
+
     # Create resource directory
-    resource_post_dir = RESOURCE_DIR / slug
-    resource_post_dir.mkdir(parents=True, exist_ok=True)
-    
+    try:
+        resource_post_dir = RESOURCE_DIR / slug
+        resource_post_dir.mkdir(parents=True, exist_ok=True)
+    except OSError as e:
+        log.error(f"Cannot create resource dir for {slug}", context=str(resource_post_dir), exc=e)
+        return False
+
     for full_match, link, is_img in find_resources_in_file(post_file):
         filename = os.path.basename(link)
         filename_lower = filename.lower()
-        
+
         if is_img:
             # Handle image: find and move to resource folder
             source_file = find_file(filename_lower, root_files, subdir_files)
             if source_file is None:
                 continue
-            
+
             new_path = resource_post_dir / filename
-            
+
             # Copy file to resource folder, then schedule source for deletion.
             # copy2 + deferred deletion (rather than shutil.move) is intentional:
             # the same source filename can be referenced by multiple posts, each
             # needing its own independent copy in resource/{slug}/.  We collect all
             # sources and remove them after the entire loop completes.
-            shutil.copy2(source_file, new_path)
+            try:
+                shutil.copy2(source_file, new_path)
+            except OSError as e:
+                log.error(f"Cannot copy {filename} to resource/{slug}/", context=str(source_file), exc=e)
+                continue
             moved_sources.add(source_file)
-            
+
             # Update link to resource path
             new_link = f"resource/{slug}/{filename}"
             content = content.replace(full_match, f"![]({new_link})")
             changes_made = True
-            print(f"  [IMAGE] {filename} -> resource/{slug}/")
+            log.info(f"  [IMAGE] {filename} -> resource/{slug}/")
         else:
             # Handle post reference: convert to link
             post_slug = filename.replace('.md', '')
@@ -143,11 +159,15 @@ def process_post(post_file: Path, root_files: dict, subdir_files: dict, moved_so
                 count=1
             )
             changes_made = True
-            print(f"  [POST] {filename} -> post.html?slug={post_slug}")
-    
+            log.info(f"  [POST] {filename} -> post.html?slug={post_slug}")
+
     if changes_made:
-        post_file.write_text(content, encoding='utf-8')
-    
+        try:
+            post_file.write_text(content, encoding='utf-8')
+        except OSError as e:
+            log.error(f"Cannot write updated content to {post_file.name}", context=str(post_file), exc=e)
+            return False
+
     return changes_made
 
 def cleanup_empty_dirs():
@@ -182,27 +202,31 @@ def cleanup_orphaned_subdir_files():
                     print(f"  Removed orphaned subdir file: posts/{slug}/{f.name}")
 
 def main():
-    print("Scanning posts for embedded resources...")
-    
+    log = Logger("organize_resources")
+    log.info("Scanning posts for embedded resources...")
+
     root_files = get_all_root_files()
     subdir_files = get_all_post_subdir_files()
-    print(f"Found {len(root_files)} files in root directory")
-    print(f"Found {len(subdir_files)} files in posts/ subdirectories")
-    
+    log.info(f"Found {len(root_files)} files in root directory")
+    log.info(f"Found {len(subdir_files)} files in posts/ subdirectories")
+
     changes_made = False
     moved_sources: set = set()
-    
+
     for post_file in sorted(POSTS_DIR.glob("*.md")):
-        if process_post(post_file, root_files, subdir_files, moved_sources):
+        if process_post(post_file, root_files, subdir_files, moved_sources, log):
             changes_made = True
-            print(f"Updated: {post_file.name}")
-    
+            log.info(f"Updated: {post_file.name}")
+
     # Delete original source files that were copied to resource/
     for src in moved_sources:
         if src.exists():
-            src.unlink()
-            print(f"  Deleted source: {src}")
-    
+            try:
+                src.unlink()
+                log.info(f"  Deleted source: {src}")
+            except OSError as e:
+                log.error(f"Cannot delete source file {src.name}", context=str(src), exc=e)
+
     # Clean up leftover attachment files in posts/ subdirectories
     cleanup_orphaned_subdir_files()
 
@@ -210,9 +234,11 @@ def main():
     cleanup_empty_dirs()
 
     if changes_made:
-        print("\nResource organization complete!")
+        log.info("Resource organization complete!")
     else:
-        print("\nNo changes needed.")
+        log.info("No changes needed.")
+
+    sys.exit(log.summary())
 
 if __name__ == "__main__":
     main()

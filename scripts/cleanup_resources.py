@@ -5,7 +5,11 @@ Also restore resources from trash if they're re-referenced.
 """
 import os
 import re
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from log_utils import Logger
 
 ROOT = Path(__file__).resolve().parent.parent
 TRASH_DIR = ROOT / "_trash"
@@ -18,13 +22,17 @@ ALL_EXTS = {'.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.bmp', '.pdf', '.
 # Root-level files that are site assets (not blog-post attachments) and must never be trashed
 PROTECTED_ROOT_FILES = {'favicon.svg', 'favicon.png', 'favicon.ico'}  # lowercase; matched case-insensitively
 
-def get_all_referenced_filenames() -> set:
+def get_all_referenced_filenames(log: Logger) -> set:
     """Get all resource filenames referenced in posts."""
     referenced = set()
-    
+
     for post_file in POSTS_DIR.glob("*.md"):
-        content = post_file.read_text(encoding='utf-8')
-        
+        try:
+            content = post_file.read_text(encoding='utf-8')
+        except Exception as e:
+            log.error(f"Cannot read {post_file.name}", context=str(post_file), exc=e)
+            continue
+
         # Markdown images: ![alt](path)
         for match in re.finditer(r'!\[([^\]]*)\]\(([^)]+)\)', content):
             link = match.group(2)
@@ -33,19 +41,19 @@ def get_all_referenced_filenames() -> set:
             # paths mean the file still lives in root/posts subdirs.
             if not link.startswith(('http://', 'https://', '/', 'data:', 'resource/')):
                 referenced.add(os.path.basename(link).lower())
-        
+
         # Obsidian embeds: ![[path]]
         for match in re.finditer(r'!\[\[([^\]|]+)(?:\|[^\]]+)?\]\]', content):
             link = match.group(1)
             referenced.add(os.path.basename(link).lower())
-    
+
     # Also check resource/ folder
     if RESOURCE_DIR.exists():
         for f in RESOURCE_DIR.rglob('*'):
             if f.is_file():
                 # Check if this resource is still referenced by any post
                 pass
-    
+
     return referenced
 
 def scan_directory(directory: Path) -> dict:
@@ -82,60 +90,66 @@ def restore_from_trash(referenced: set, trash_files: dict) -> list:
     
     return restored
 
-def move_to_trash(files: dict, referenced: set) -> list:
+def move_to_trash(files: dict, referenced: set, log: Logger) -> list:
     """Move unreferenced files to trash."""
     moved = []
-    
+
     for filename_lower, filepath in list(files.items()):
         if filename_lower not in referenced:
-            TRASH_DIR.mkdir(exist_ok=True)
-            new_path = TRASH_DIR / filepath.name
-            # Handle duplicates
-            counter = 1
-            while new_path.exists():
-                name, ext = os.path.splitext(filepath.name)
-                new_path = TRASH_DIR / f"{name}_{counter}{ext}"
-                counter += 1
-            filepath.rename(new_path)
-            print(f"  Moved to trash: {filepath.name} -> _trash/{new_path.name}")
-            moved.append(filepath.name)
-    
+            try:
+                TRASH_DIR.mkdir(exist_ok=True)
+                new_path = TRASH_DIR / filepath.name
+                # Handle duplicates
+                counter = 1
+                while new_path.exists():
+                    name, ext = os.path.splitext(filepath.name)
+                    new_path = TRASH_DIR / f"{name}_{counter}{ext}"
+                    counter += 1
+                filepath.rename(new_path)
+                log.info(f"  Moved to trash: {filepath.name} -> _trash/{new_path.name}")
+                moved.append(filepath.name)
+            except OSError as e:
+                log.error(f"Cannot move {filepath.name} to trash", context=str(filepath), exc=e)
+
     return moved
 
 def main():
-    print("Cleaning up unreferenced resources...")
-    
+    log = Logger("cleanup_resources")
+    log.info("Cleaning up unreferenced resources...")
+
     # Get all referenced filenames
-    referenced = get_all_referenced_filenames()
-    print(f"Found {len(referenced)} referenced resources in posts.")
-    
+    referenced = get_all_referenced_filenames(log)
+    log.info(f"Found {len(referenced)} referenced resources in posts.")
+
     # Scan root directory
     root_files = scan_directory(ROOT)
     # Exclude special directories
     for d in ['_trash', 'resource', 'posts', 'css', 'js', 'data', 'scripts', '.github', '.obsidian', 'BlogModel']:
         root_files = {k: v for k, v in root_files.items() if not str(v).startswith(str(ROOT / d))}
-    
+
     # Scan trash directory
     trash_files = scan_directory(TRASH_DIR)
-    
-    print(f"Found {len(root_files)} resources in root directory.")
-    print(f"Found {len(trash_files)} resources in trash.")
-    
+
+    log.info(f"Found {len(root_files)} resources in root directory.")
+    log.info(f"Found {len(trash_files)} resources in trash.")
+
     # Restore from trash if re-referenced
-    print("\nChecking trash for re-referenced files...")
+    log.info("Checking trash for re-referenced files...")
     restored = restore_from_trash(referenced, trash_files)
     if restored:
-        print(f"Restored: {', '.join(restored)}")
-    
+        log.info(f"Restored: {', '.join(restored)}")
+
     # Move unreferenced to trash
-    print("\nMoving unreferenced resources to trash...")
-    moved = move_to_trash(root_files, referenced)
-    
+    log.info("Moving unreferenced resources to trash...")
+    moved = move_to_trash(root_files, referenced, log)
+
     if moved:
-        print(f"\nMoved {len(moved)} files to _trash/")
-        print("Please review _trash/ and delete files you no longer need.")
+        log.info(f"Moved {len(moved)} files to _trash/")
+        log.info("Please review _trash/ and delete files you no longer need.")
     else:
-        print("\nNo unreferenced resources found.")
+        log.info("No unreferenced resources found.")
+
+    sys.exit(log.summary())
 
 if __name__ == "__main__":
     main()
