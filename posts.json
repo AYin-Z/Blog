@@ -3,11 +3,10 @@
     "slug": "welcome",
     "title": "欢迎来到我的博客",
     "date": "2026-04-24",
-    "excerpt": "第一篇示例：站点结构、GitHub Pages 与 Obsidian 协作提示。",
+    "excerpt": "欢迎停留。",
     "category": "摆渡",
     "tags": [
-      "博客",
-      "GitHub Pages"
+      "博客"
     ],
     "pinned": true
   },
