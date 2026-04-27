@@ -5,31 +5,30 @@ categories:
   - 摆渡
 tags:
   - 博客
-  - GitHub Pages
 pinned: true
-excerpt: 第一篇示例：站点结构、GitHub Pages 与 Obsidian 协作提示。
+excerpt: 欢迎停留。
 ---
-
 # 欢迎来到我的博客
 
-这是一个部署在 **GitHub Pages** 上的静态个人博客，页面由纯 HTML、CSS 与 JavaScript 构成，文章以 Markdown 形式存放在 `posts` 目录中。
+这里是 YINZ7032 的一片安静角落。
 
-## 插图示例
+我写东西没有固定主题，多是些碎片：某个瞬间的念头、某段日子的困惑、偶尔的技术笔记。它们没有什么宏大叙事，只是我想留下痕迹的东西。
 
-使用**相对网站根目录**的路径引用图片（与 Obsidian 同仓时便于对齐）：
+**唯有文字担此重任，宣告生命曾经在场。**
 
-![](resource/welcome/demo.svg)
+这句话是我博客的起点。生命会流逝，但文字能把"在场"凝固成永恒。我不是什么作家，只是觉得，有些东西如果不写下来，就像从没发生过。
 
-## 你可以这样使用
+---
 
-1. 在 `posts` 文件夹里新增 **顶层** `.md` 文件（例如 `posts/我的笔记.md`），顶部写 YAML（见「关于」页）；附件可放在子文件夹，但文章本身需为 `posts/*.md` 以便生成索引。
-2. `posts.json` 由 GitHub Actions 根据各篇 front matter **自动同步**（推送到 `main` 后约 1～3 分钟更新）。
-3. 将改动推送到 GitHub；Pages 使用 `main` 分支根目录。
+**这里会有什么：**
 
-## 页面说明
+- **孤岛**
+- **荒原**
+- **摆渡**
+- **圆舞**
+---
 
-- **首页**：简介与最近文章。
-- **分类 / 标签 / 归档**：按结构浏览。
-- **文章详情**：`post.html?slug=文章slug`，支持 LaTeX、图片与嵌入 HTML 媒体标签。
+博客用 GitHub Pages 托管，Markdown 写作，Obsidian 管理。技术栈说明见[这里](https://yinz7032.com/post.html?slug=tech-stack)。
 
-祝写作愉快。
+欢迎停留，
+祝你早安，午安，晚安。
