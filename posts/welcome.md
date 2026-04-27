@@ -37,5 +37,5 @@ excerpt: 欢迎停留。
 
 博客用 GitHub Pages 托管，Markdown 写作，Obsidian 管理。技术栈说明见[这里](https://yinz7032.com/post.html?slug=tech-stack)。
 
-##### 欢迎停留，
+### 欢迎停留，
 >祝你早安，午安，晚安。
