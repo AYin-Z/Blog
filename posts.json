@@ -1,32 +1,5 @@
 [
   {
-    "slug": "semantic-spark-protocol",
-    "title": "Semantic Spark Protocol —— 从念头到项目的编程范式",
-    "date": "2026-05-25",
-    "excerpt": "当 AI 可以接管「怎么做」的全部执行时，人类的价值在「想清楚要什么」和「判断好不好」上被无限放大。",
-    "category": "荒原",
-    "tags": [
-      "AI",
-      "编程范式",
-      "SFD",
-      "LLM"
-    ],
-    "pinned": false
-  },
-  {
-    "slug": "260516_从五月初到五月半",
-    "title": "从五月初到五月半",
-    "date": "2026-05-16",
-    "excerpt": "Hermes 部署半个月，我们都做了些什么。",
-    "category": "荒原",
-    "tags": [
-      "Hermes",
-      "AI",
-      "技术"
-    ],
-    "pinned": false
-  },
-  {
     "slug": "welcome",
     "title": "欢迎来到我的博客",
     "date": "2026-04-24",
@@ -69,6 +42,15 @@
       "Thoughts"
     ],
     "pinned": true
+  },
+  {
+    "slug": "semantic-spark-protocol",
+    "title": "Semantic Spark Protocol —— 从念头到项目的编程范式",
+    "date": "2026-05-25",
+    "excerpt": "一个正在酝酿中的编程新范式：先想清楚再说。",
+    "category": "荒原",
+    "tags": [],
+    "pinned": false
   },
   {
     "slug": "260516_从五月初到五月半",
