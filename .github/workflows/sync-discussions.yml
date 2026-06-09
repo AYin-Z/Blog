@@ -8,7 +8,6 @@ on:
 
 permissions:
   contents: write
-  discussions: read
 
 jobs:
   sync-discussions:
