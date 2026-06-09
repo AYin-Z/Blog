@@ -8,18 +8,9 @@
   var bcEl = document.getElementById("breadcrumb-current");
 
   if (!slug) {
-    errEl.style.display = "none";
-    document.title = "404 · YINZ7032's Blog";
-    if (bcEl) bcEl.textContent = "404";
-    bodyEl.innerHTML = [
-      '<div class="notfound notfound--inline">',
-      '  <div class="notfound__code">404</div>',
-      '  <h1 class="notfound__title">缺少文章参数</h1>',
-      '  <p class="notfound__desc">请从文章列表选择一篇阅读。</p>',
-      '  <a class="notfound__action" href="posts.html">← 查看文章列表</a>',
-      '</div>'
-    ].join('
-');
+    errEl.hidden = false;
+    errEl.classList.add("msg--error");
+    errEl.textContent = "缺少文章参数。请从文章列表进入。";
     return;
   }
 
@@ -177,21 +168,10 @@
       renderMath();
       initGiscus(slug);
     } catch (e) {
-      errEl.style.display = "none";
-      document.title = "404 · 文章未找到 · YINZ7032's Blog";
-      if (bcEl) bcEl.textContent = "404";
-      bodyEl.innerHTML = [
-        '<div class="notfound notfound--inline">',
-        '  <div class="notfound__code">404</div>',
-        '  <h1 class="notfound__title">文章不存在</h1>',
-        '  <p class="notfound__desc">',
-        '    没有找到这篇名为 <strong>"' + escapeHtml(slug) + '"</strong> 的文章。<br>',
-        '    可能是链接拼错了，或者这篇还没发布。',
-        '  </p>',
-        '  <a class="notfound__action" href="posts.html">← 查看文章列表</a>',
-        '</div>'
-      ].join('
-');
+      errEl.hidden = false;
+      errEl.classList.add("msg--error");
+      errEl.textContent = e.message || "加载失败";
+      bodyEl.innerHTML = "";
     }
   }
 
