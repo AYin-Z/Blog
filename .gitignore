@@ -1,7 +1,5 @@
-# Obsidian
-.obsidian/workspace-mobile.json
-.obsidian/workspace
-.obsidian/graph.json
+# Obsidian (IDE for writing)
+.obsidian/
 
 # IDE
 .vscode/
@@ -11,6 +9,16 @@
 .DS_Store
 Thumbs.db
 
-# 临时文件（如果你有）
+# Temporary files
 *.tmp
 *.log
+
+# Preview artifacts
+.coze
+
+# Generated artifacts (CI manages these)
+_trash/
+
+# Screenshot debris (don't commit ad-hoc screenshots to root)
+Screenshot_*.jpg
+Screenshot_*.png

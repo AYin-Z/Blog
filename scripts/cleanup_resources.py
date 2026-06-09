@@ -15,9 +15,16 @@ RESOURCE_DIR = ROOT / "resource"
 # All supported extensions
 ALL_EXTS = {'.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.bmp', '.pdf', '.zip', '.mp3', '.mp4', '.mov', '.avi'}
 
+# ═══ Site assets whitelist ── NEVER move these to trash ═══
+# These are referenced by HTML templates / site config, not by post markdown.
+SITE_ASSETS = frozenset({
+    'favicon.svg', 'favicon.ico', 'apple-touch-icon.png',
+    'robots.txt', 'sitemap.xml', 'CNAME', 'README.md',
+})
+
 def get_all_referenced_filenames() -> set:
-    """Get all resource filenames referenced in posts."""
-    referenced = set()
+    """Get all resource filenames referenced in posts AND HTML templates."""
+    referenced = set(SITE_ASSETS)  # site assets are always "referenced"
     
     for post_file in POSTS_DIR.glob("*.md"):
         content = post_file.read_text(encoding='utf-8')
@@ -33,12 +40,19 @@ def get_all_referenced_filenames() -> set:
             link = match.group(1)
             referenced.add(os.path.basename(link).lower())
     
-    # Also check resource/ folder
+    # Also scan HTML templates for /resource/ links
+    for html_file in ROOT.glob("*.html"):
+        content = html_file.read_text(encoding='utf-8')
+        for match in re.finditer(r'(?:src|href)=["\']([^"\']+)["\']', content):
+            link = match.group(1)
+            if link.startswith('resource/'):
+                referenced.add(os.path.basename(link).lower())
+    
+    # Also scan all files under resource/ to prevent re-moving already-organized files
     if RESOURCE_DIR.exists():
         for f in RESOURCE_DIR.rglob('*'):
-            if f.is_file():
-                # Check if this resource is still referenced by any post
-                pass
+            if f.is_file() and f.suffix.lower() in ALL_EXTS:
+                referenced.add(f.name.lower())
     
     return referenced
 
