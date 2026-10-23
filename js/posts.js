@@ -73,3 +73,39 @@ function postTagsHtml(tags) {
     "</div>"
   );
 }
+
+/**
+ * v2 统一文章卡片 HTML（首页 / 文章列表 / 分类 / 标签页共用）
+ * 返回 <a class="v2-card"> 的 innerHTML
+ */
+function postCardHtml(p) {
+  var top =
+    '<span class="v2-chip v2-chip--cat">' + escapeHtml(p.category) + "</span>" +
+    (p.pinned ? '<span class="v2-chip v2-chip--pin">置顶</span>' : "") +
+    '<time class="v2-card__date">' + formatPostDate(p.date) + "</time>";
+
+  var tags = (p.tags || [])
+    .map(function (t) {
+      return '<span class="v2-tag">' + escapeHtml(t) + "</span>";
+    })
+    .join("");
+
+  return (
+    '<div class="v2-card__top">' + top + "</div>" +
+    '<h3 class="v2-card__title">' + escapeHtml(p.title) + "</h3>" +
+    '<p class="v2-card__excerpt">' + escapeHtml(p.excerpt || "") + "</p>" +
+    '<div class="v2-card__foot">' +
+    '<div class="v2-tags">' + tags + "</div>" +
+    '<span class="v2-card__arrow" aria-hidden="true">→</span>' +
+    "</div>"
+  );
+}
+
+/** 创建 v2 卡片 <a> 元素 */
+function createPostCard(p) {
+  var a = document.createElement("a");
+  a.className = "v2-card";
+  a.href = postDetailUrl(p.slug);
+  a.innerHTML = postCardHtml(p);
+  return a;
+}

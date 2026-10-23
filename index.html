@@ -3,37 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="个人博客 — GitHub Pages" />
-    <title>首页 · YINZ7032's Blog</title>
+    <meta name="description" content="YINZ7032 的文字自留地。记录思考、情绪和那些值得被留下的瞬间。" />
+    <title>YINZ7032's Blog</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css?v=2" />
+    <link rel="stylesheet" href="css/design.css?v=night-1" />
   </head>
   <body data-page="home">
     <header class="site-header" id="site-header"></header>
 
     <main>
-      <nav class="breadcrumb" aria-label="面包屑">
-        <a href="index.html">首页</a> <span class="breadcrumb__sep">/</span>
-      </nav>
-      <section class="hero">
-        <h1>YINZ7032's Blog</h1>
-        <p>
-          唯有文字担此重任，宣告生命曾经在场。<br />
-          Welcome to my paradise.
-        </p>
+      <section class="night-hero" aria-labelledby="home-title">
+        <p class="night-overline">Notes from a quiet island</p>
+        <h1 id="home-title">唯有文字担此重任，<br />宣告生命曾经在场。</h1>
+        <p class="night-hero__intro">一座安静的数字岛屿。<br />留下思考、情绪，和那些不愿遗忘的瞬间。</p>
+        <p class="night-hero__motto">Per aspera ad astra <span aria-hidden="true">·</span> 循此苦旅，以达星辰</p>
+        <span class="night-star" aria-hidden="true">✦</span>
       </section>
-
-      <h2 class="section-title">最近文章</h2>
-      <p id="home-error" class="msg msg--error" hidden></p>
-      <ul id="recent-posts" class="post-list" aria-live="polite"></ul>
+      <p id="home-error" class="msg" role="status" hidden></p>
+      <section id="home-featured" class="night-section" aria-labelledby="featured-heading" hidden>
+        <div class="night-section__head"><h2 id="featured-heading">选一篇，慢慢读</h2><a href="posts.html">全部文字 <span aria-hidden="true">↗</span></a></div>
+        <div id="featured-post"></div>
+      </section>
+      <nav class="night-routes" aria-label="四个写作分区">
+        <a href="category.html?cat=孤岛"><span class="night-routes__index">01 / Island</span><h2>孤岛</h2><p>向内，倾听自己</p><span class="night-routes__arrow" aria-hidden="true">↗</span></a>
+        <a href="category.html?cat=荒原"><span class="night-routes__index">02 / Wilds</span><h2>荒原</h2><p>探索与学习的痕迹</p><span class="night-routes__arrow" aria-hidden="true">↗</span></a>
+        <a href="category.html?cat=摆渡"><span class="night-routes__index">03 / Ferry</span><h2>摆渡</h2><p>与世界相遇</p><span class="night-routes__arrow" aria-hidden="true">↗</span></a>
+        <a href="category.html?cat=圆舞"><span class="night-routes__index">04 / Waltz</span><h2>圆舞</h2><p>让创作自由生长</p><span class="night-routes__arrow" aria-hidden="true">↗</span></a>
+      </nav>
+      <section class="night-section night-recent" aria-labelledby="recent-heading">
+        <div class="night-section__head"><h2 id="recent-heading">最近留下的文字</h2><a href="archives.html">沿时间翻阅 <span aria-hidden="true">↗</span></a></div>
+        <ul id="recent-posts" class="night-post-list" aria-live="polite"><li class="night-loading">正在翻开手记…</li></ul>
+      </section>
+      <aside class="night-invitation"><p>读到这里，也算相遇。</p><a href="guestbook.html">留一句话 <span aria-hidden="true">↗</span></a></aside>
+      <noscript><p class="msg">启用 JavaScript 后可以浏览文章列表。</p></noscript>
     </main>
 
     <footer class="site-footer site-footer--rich" id="site-footer"></footer>
 
-    <script src="js/site-config.js"></script>
-    <script src="js/layout.js"></script>
-    <script src="js/posts.js"></script>
-    <script src="js/home.js"></script>
+    <script src="js/site-config.js?v=night-1"></script>
+    <script src="js/layout.js?v=night-1"></script>
+    <script src="js/posts.js?v=2"></script>
+    <script src="js/home.js?v=night-1"></script>
     <meta name="referrer" content="no-referrer-when-downgrade" />
     <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </body>

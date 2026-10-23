@@ -148,10 +148,10 @@
       // Render category
       var categoryEl = document.getElementById("article-category");
       var categoryLinkEl = document.getElementById("article-category-link");
-      if (categoryEl && meta && meta.categories && meta.categories.length) {
-        var cat = meta.categories[0];
+      if (categoryEl && meta && meta.category) {
+        var cat = meta.category;
         categoryLinkEl.textContent = cat;
-        categoryLinkEl.href = "category.html?category=" + encodeURIComponent(cat);
+        categoryLinkEl.href = "category.html?cat=" + encodeURIComponent(cat);
         categoryEl.hidden = false;
       }
 

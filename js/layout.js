@@ -9,7 +9,8 @@
   function navHtml() {
     var items = cfg.nav
       .map(function (item) {
-        var active = item.id === page ? ' class="is-active"' : "";
+        var section = ["categories", "category", "tags", "tag"].indexOf(page) !== -1 ? "posts" : page;
+        var active = item.id === section ? ' class="is-active" aria-current="page"' : "";
         return '<a href="' + item.href + '"' + active + ">" + escapeHtml(item.label) + "</a>";
       })
       .join("");
@@ -18,6 +19,7 @@
       '<a class="logo" href="index.html">' +
       cfg.logoHtml +
       "</a>" +
+      '<span class="site-tagline">文字的自留地</span>' +
       '<nav class="nav" aria-label="主导航">' +
       items +
       "</nav>" +
@@ -62,12 +64,13 @@
       })
       .join("");
     footerEl.innerHTML =
+      '<div class="footer-signature"><span>YINZ7032 · 一个文字记录者</span><span>欢迎停留，也欢迎再来。</span></div>' +
       '<div class="footer-grid">' +
       cols +
       "</div>" +
       '<p class="footer-note">' +
       escapeHtml(cfg.footerNote) +
-      ' | <span id="busuanzi_container_site_uv">本站访客 <span id="busuanzi_value_site_uv"></span> 人</span>' +
+      '<span id="busuanzi_container_site_uv"> · 本站访客 <span id="busuanzi_value_site_uv"></span> 人</span>' +
       "</p>";
   }
 
@@ -85,11 +88,26 @@
   }
 
   if (headerEl) headerEl.innerHTML = navHtml();
+  var main = document.querySelector("main");
+  if (main) {
+    main.id = "main-content";
+    var skip = document.createElement("a");
+    skip.className = "skip-link";
+    skip.href = "#main-content";
+    skip.textContent = "跳到正文";
+    document.body.insertBefore(skip, document.body.firstChild);
+  }
   footerHtml();
 
   function applyTheme(mode) {
     if (mode === "light") document.documentElement.setAttribute("data-theme", "light");
     else document.documentElement.removeAttribute("data-theme");
+    var themeButton = document.getElementById("theme-toggle");
+    if (themeButton) {
+      var label = mode === "light" ? "切换深色阅读" : "切换浅色阅读";
+      themeButton.setAttribute("aria-label", label);
+      themeButton.title = label;
+    }
     try {
       localStorage.setItem("blog-theme", mode);
     } catch (e) {}
@@ -100,7 +118,7 @@
 
   try {
     var saved = localStorage.getItem("blog-theme");
-    if (saved === "light") applyTheme("light");
+    applyTheme(saved === "light" ? "light" : "dark");
   } catch (e) {}
 
   var toggle = document.getElementById("theme-toggle");

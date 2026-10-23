@@ -6,12 +6,10 @@ window.SITE_CONFIG = {
   title: "YINZ7032's Blog",
   /** 显示在左上角 logo 内，可用 <span> 高亮一节 */
   logoHtml: 'YINZ<span>7032</span>',
+  homeFeaturedSlug: "Thought 19Y",
   nav: [
-    { id: "home", label: "首页", href: "index.html" },
-    { id: "categories", label: "分类", href: "categories.html" },
-    { id: "tags", label: "标签", href: "tags.html" },
+    { id: "posts", label: "文字", href: "posts.html" },
     { id: "archives", label: "归档", href: "archives.html" },
-    { id: "posts", label: "文章", href: "posts.html" },
     { id: "guestbook", label: "留言", href: "guestbook.html" },
     { id: "about", label: "关于", href: "about.html" },
   ],
